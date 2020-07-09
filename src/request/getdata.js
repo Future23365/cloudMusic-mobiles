@@ -1,6 +1,5 @@
 import server from './request'
 import axios from 'axios';
-import { reject } from 'core-js/fn/promise';
 
 //获取歌曲url
 export const getsongUrl = id => {
@@ -171,6 +170,11 @@ export const getVideocomments = (id, limit, offset = 0) => {
   })
 }
 
+export const getBanner = (type = 1) => {
+  return server({
+    url: `/banner?type=${type}`
+  })
+}
 //并发请求
 export const serverAll = (arr) => {
   return axios.all(arr)
