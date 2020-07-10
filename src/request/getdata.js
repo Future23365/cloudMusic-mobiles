@@ -169,10 +169,17 @@ export const getVideocomments = (id, limit, offset = 0) => {
     url: `/comment/video?id=${id}&limit=${limit}&offset=${offset}`
   })
 }
-
+//获取banner数据
 export const getBanner = (type = 1) => {
   return server({
     url: `/banner?type=${type}`
+  })
+}
+
+//获取精品歌单
+export const getHighquality = (limit = 20) => {
+  return server({
+    url: `/top/playlist/highquality?limit=${limit}`
   })
 }
 //并发请求
