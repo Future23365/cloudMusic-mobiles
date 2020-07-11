@@ -108,7 +108,8 @@ export default {
         click: this.click,
         scrollX: this.scrollX,
         snap: this.snap,
-        momentum: this.momentum  //  一次滑动一张
+        momentum: this.momentum,  //  一次滑动一张
+        eventPassthrough: this.eventPassthrough
       })
       // 是否派发滚动事件
       if (this.listenScroll) {
@@ -144,7 +145,6 @@ export default {
           this.$emit('beforeScroll')
         })
       }
-      
       let that = this;//保存执行环境的this
       //滚动结束事件
       this.scroll.on('scrollEnd', function(e) {
@@ -191,6 +191,8 @@ export default {
     data() {
       setTimeout(() => {
         this.refresh()
+        console.log(this.scroll)
+        console.log('重新渲染')
       }, this.refreshDelay)
     }
   }

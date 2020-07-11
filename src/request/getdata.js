@@ -182,6 +182,13 @@ export const getHighquality = (limit = 20) => {
     url: `/top/playlist/highquality?limit=${limit}`
   })
 }
+
+export const getNewwest = () => {
+  return server({
+    url: `/album/newest`
+  })
+}
+
 //并发请求
 export const serverAll = (arr) => {
   return axios.all(arr)
