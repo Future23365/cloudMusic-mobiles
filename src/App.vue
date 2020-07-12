@@ -11,7 +11,11 @@ import Header from "@/views/Header";
 export default {
   components: {
     Header
-  }
+  },
+  data() {
+    return {};
+  },
+  mounted() {}
 };
 </script>
 

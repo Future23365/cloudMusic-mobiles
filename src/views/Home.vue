@@ -2,24 +2,32 @@
   <div id="home">
     我是发现
     <div class="swiper-main">
-      <Swiper class="wrapper"
+      <Swiper
+        class="wrapper"
         :data="bannersData"
-        :scrollX=true
-        :probeType=2
-        :autoPlay=true
-        :momentum=false
+        :scrollX="true"
+        :probeType="2"
+        :autoPlay="true"
+        :momentum="false"
         :eventPassthrough="vertical"
         :snap="swiperOptions.snap"
         @scrollToEnd="getIndex"
         ref="swiperChild"
       >
-      <ul class="content" :style="{width: swiperLength}">
-        <li v-for="(item, index) in bannersData" :key="index"><img :src="item.pic" alt=""></li>
-      </ul>
+        <ul class="content" :style="{ width: swiperLength }">
+          <li v-for="(item, index) in bannersData" :key="index">
+            <img :src="item.pic" alt="" />
+          </li>
+        </ul>
       </Swiper>
       <div class="pager">
         <ul>
-          <li v-for="(item, index) in bannersData" :key="index" :class="swiperIndex === index ? 'chooseSwiper' : ''" @click="setIndex(index)"></li>
+          <li
+            v-for="(item, index) in bannersData"
+            :key="index"
+            :class="swiperIndex === index ? 'chooseSwiper' : ''"
+            @click="setIndex(index)"
+          ></li>
         </ul>
       </div>
     </div>
@@ -30,28 +38,35 @@
     </div>
     <div class="title">发现好歌单</div>
     <div class="find-songsheet">
-      <Swiper class="wrapper-songsheet"
+      <Swiper
+        class="wrapper-songsheet"
         :data="songsheetData"
-        :scrollX=true
-        :probeType=2
+        :scrollX="true"
+        :probeType="2"
         :eventPassthrough="vertical"
         :snap="swiperOptions.snapSheet"
         ref="swiperChildsongsheet"
       >
         <div class="content-songsheetpar">
           <ul class="content-songsheet">
-            <li v-for="(item, index) in songsheetData" :key="index"><div><img :src="item.coverImgUrl" alt=""><br>{{item.name}}</div></li>
+            <li v-for="(item, index) in songsheetData" :key="index">
+              <div>
+                <img :src="item.coverImgUrl" alt="" />
+                <br />{{ item.name }}
+              </div>
+            </li>
           </ul>
         </div>
       </Swiper>
     </div>
     <div class="title">发现新音乐</div>
     <div class="find-songs">
-      <Swiper class="wrapper-songs"
+      <Swiper
+        class="wrapper-songs"
         :data="newSongData.a"
-        :scrollX=true
-        :probeType=1
-        :momentum=false
+        :scrollX="true"
+        :probeType="1"
+        :momentum="false"
         :eventPassthrough="vertical"
         :snap="swiperOptions.snapSongs"
         ref="swiperChildsongs"
@@ -59,28 +74,37 @@
         <ul class="content-songs">
           <li>
             <div v-for="(item, index) in newSongData.a" :key="index">
-              <img :src="item.picUrl" alt="">
+              <img :src="item.picUrl" alt="" />
               <div>
-                <span>{{item.name}}</span><br>
-                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">{{jtem.name}}</span>
+                <span>{{ item.name }}</span>
+                <br />
+                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">
+                  {{ jtem.name }}
+                </span>
               </div>
             </div>
           </li>
           <li>
             <div v-for="(item, index) in newSongData.b" :key="index">
-              <img :src="item.picUrl" alt="">
+              <img :src="item.picUrl" alt="" />
               <div>
-                <span>{{item.name}}</span><br>
-                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">{{jtem.name}}</span>
+                <span>{{ item.name }}</span>
+                <br />
+                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">
+                  {{ jtem.name }}
+                </span>
               </div>
             </div>
           </li>
           <li>
             <div v-for="(item, index) in newSongData.c" :key="index">
-              <img :src="item.picUrl" alt="">
+              <img :src="item.picUrl" alt="" />
               <div>
-                <span>{{item.name}}</span><br>
-                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">{{jtem.name}}</span>
+                <span>{{ item.name }}</span>
+                <br />
+                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">
+                  {{ jtem.name }}
+                </span>
               </div>
             </div>
           </li>
@@ -89,30 +113,62 @@
     </div>
     <div class="title">发现新专辑</div>
     <div class="find-album">
-      <Swiper class="wrapper-album"
+      <Swiper
+        class="wrapper-album"
         :data="albumData"
-        :scrollX=true
-        :probeType=2
+        :scrollX="true"
+        :probeType="2"
         :eventPassthrough="vertical"
         :snap="swiperOptions.snapAlbum"
         ref="swiperChildalbum"
       >
         <div class="content-albumpar">
           <ul class="content-album">
-            <li v-for="(item, index) in albumData" :key="index"><div><img :src="item.blurPicUrl" alt=""><br>{{item.name}}</div></li>
+            <li v-for="(item, index) in albumData" :key="index">
+              <div>
+                <img :src="item.blurPicUrl" alt="" />
+                <br />
+                {{ item.name }}
+              </div>
+            </li>
           </ul>
         </div>
       </Swiper>
     </div>
-    <div class="title">发现新视频</div>
+    <div class="title">发现新MV</div>
+    <div class="find-mv">
+      <Swiper
+        class="wrapper-mv"
+        :data="mvData"
+        :scrollX="true"
+        :probeType="2"
+        :eventPassthrough="vertical"
+        :snap="swiperOptions.snapMv"
+        ref="swiperChildmv"
+      >
+        <ul class="content-mv">
+          <li v-for="(item, index) in mvData" :key="index">
+            <div>
+              <img :src="item.picUrl" alt="" />
+              {{ item.name }}
+            </div>
+          </li>
+        </ul>
+      </Swiper>
+    </div>
     <a href="/">aa</a>
   </div>
-
 </template>
 
 <script>
-import { getBanner, getHighquality, getsongNew, getNewwest } from '@/request/getdata';
-import Swiper from '@/components/Swiper';
+import {
+  getBanner,
+  getHighquality,
+  getsongNew,
+  getNewwest,
+  getPersonalizedMv
+} from "@/request/getdata";
+import Swiper from "@/components/Swiper";
 export default {
   name: 'Home',
   components: {
@@ -122,53 +178,49 @@ export default {
     return {
       bannersData: [],
       songsheetData: [],
-      newSongData: {a: [], b: [], c: []},
+      newSongData: { a: [], b: [], c: [] },
       albumData: [],
+      mvData: [],
       vertical:'vertical',
       swiperOptions: {},
-      swiperIndex: 0,
-    }
+      swiperIndex: 0
+    };
   },
   methods: {
     //获取轮播图数据
     getBannerData() {
       getBanner().then(res => {
-        // console.log(res)
+        console.log(res);
+        this.swiperOptions.snap = {
+          loop: true,
+          threshold: 0.2
+        };
         this.bannersData = res.banners;
       });
-      this.swiperOptions.snap = {
-        loop: true,
-        threshold: 0.2,
-      }
     },
     //获取精品歌单
     getHotlistData() {
       getHighquality(6).then(res => {
         // console.log(res)
-        this.songsheetData = res.playlists;
         this.swiperOptions.snapSheet = {
           loop: false,
-          threshold: 0.1,
-        }
-        // let that = this;
-        // setInterval(function() {
-        //   console.log(that.$refs.swiperChildsongsheet._setRefresh())
-        // }, 100)
-        // this.$refs.swiperChildsongsheet._setRefresh();
-      })
+          threshold: 0.1
+        };
+        this.songsheetData = res.playlists;
+      });
     },
     //获取推荐新音乐
     getNewsongData() {
       getsongNew().then(res => {
         console.log(res);
-        this.newSongData.a = res.result.slice(0,3);
-        this.newSongData.b = res.result.slice(3,6);
-        this.newSongData.c = res.result.slice(6,9);
         this.swiperOptions.snapSongs = {
           loop: false,
-          threshold: 0.1,
-        }
-      })
+          threshold: 0.1
+        };
+        this.newSongData.a = res.result.slice(0, 3);
+        this.newSongData.b = res.result.slice(3, 6);
+        this.newSongData.c = res.result.slice(6, 9);
+      });
     },
     //获取新专辑
     getAlbumData() {
@@ -177,37 +229,46 @@ export default {
         this.albumData = res.albums;
         this.swiperOptions.snapAlbum = {
           loop: false,
-          threshold: 0.1,
-        }
-      })
+          threshold: 0.1
+        };
+      });
+    },
+    //获取推荐MV
+    getRecommentMv() {
+      getPersonalizedMv().then(res => {
+        console.log(res);
+        this.swiperOptions.snapMv = {
+          loop: false,
+          threshold: 0.1
+        };
+        this.mvData = res.result;
+      });
     },
     //轮播图小圆点位置更换
     getIndex(index) {
       this.swiperIndex = index;
-      if(this.swiperIndex >= this.bannersData.length) {
+      if (this.swiperIndex >= this.bannersData.length) {
         this.swiperIndex = 0;
       }
     },
     //点击小圆点调用子组件事件
     setIndex(index) {
-      this.$refs.swiperChild._setIndex(index)
-    },
+      this.$refs.swiperChild._setIndex(index);
+    }
   },
   created() {
     this.getBannerData();
     this.getHotlistData();
     this.getNewsongData();
     this.getAlbumData();
-    
-    
+    this.getRecommentMv();
   },
   mounted() {
     // this.getBannerData();
-    
   },
   computed: {
     swiperLength: function() {
-      return `${(this.bannersData.length + 2) * 100}vw`
+      return `${(this.bannersData.length + 2) * 100}vw`;
     }
   }
 };
@@ -226,7 +287,7 @@ export default {
     }
   }
   min-height: 100vh;
-  
+
   .swiper-main {
     position: relative;
     .wrapper {
@@ -268,20 +329,20 @@ export default {
   .menu {
     display: flex;
     justify-content: space-around;
-    &>span {
+    & > span {
       // display: inline-block;
       display: flex;
-      width: .6rem;
-      height: .6rem;
+      width: 0.6rem;
+      height: 0.6rem;
       background-color: #6f60aa;
       border-radius: 50%;
       justify-content: center;
       align-items: center;
       color: #fff;
-      font-size: .14rem;
-      &>span {
+      font-size: 0.14rem;
+      & > span {
         &::before {
-          font-size: .14rem;
+          font-size: 0.14rem;
         }
       }
     }
@@ -305,7 +366,7 @@ export default {
             justify-content: space-around;
             div {
               width: 30vw;
-              font-size: .10rem;
+              font-size: 0.1rem;
               img {
                 width: 30vw;
                 height: 1.25rem;
@@ -313,7 +374,7 @@ export default {
             }
           }
         }
-      } 
+      }
     }
   }
   .title {
@@ -345,7 +406,7 @@ export default {
               display: inline-block;
               width: 100vw - 18.6666667vw;
             }
-          } 
+          }
         }
       }
     }
@@ -370,7 +431,7 @@ export default {
             justify-content: space-around;
             div {
               width: 30vw;
-              font-size: .10rem;
+              font-size: 0.1rem;
               img {
                 width: 30vw;
                 height: 1.25rem;
@@ -378,7 +439,33 @@ export default {
             }
           }
         }
-      } 
+      }
+    }
+  }
+  .find-mv {
+    .wrapper-mv {
+      width: 100vw;
+      height: 2rem;
+      // overflow: hidden;
+      .content-mv {
+        height: 2rem;
+        // overflow: hidden;
+        width: 400vw;
+        li {
+          float: left;
+          width: 100vw;
+          // display: flex;
+          // justify-content: space-around;
+          div {
+            width: 30vw;
+            font-size: 0.1rem;
+            img {
+              width: 100vw;
+              height: 2rem;
+            }
+          }
+        }
+      }
     }
   }
 }
