@@ -1,6 +1,5 @@
 <template>
   <div id="home">
-    我是发现
     <div class="swiper-main">
       <Swiper
         class="wrapper"
@@ -16,7 +15,8 @@
       >
         <ul class="content" :style="{ width: swiperLength }">
           <li v-for="(item, index) in bannersData" :key="index">
-            <img :src="item.pic" alt="" />
+            <img :src="item.pic" alt="" @click="bannerClick(item)"/>
+            <div class="typeTitle" :style="{backgroundColor: item.typeTitle === '独家' ? '#ed1941' : ''}">{{ item.typeTitle }}</div>
           </li>
         </ul>
       </Swiper>
@@ -53,6 +53,7 @@
               <div>
                 <img :src="item.coverImgUrl" alt="" />
                 <br />{{ item.name }}
+                <span class="sheet-playcount"><span class="iconfont icon-bofang"></span>{{localeString(item.playCount)}}</span>
               </div>
             </li>
           </ul>
@@ -168,6 +169,7 @@ import {
   getNewwest,
   getPersonalizedMv
 } from "@/request/getdata";
+import { stringLocale } from "@/tool/tools"
 import Swiper from "@/components/Swiper";
 export default {
   name: 'Home',
@@ -201,7 +203,7 @@ export default {
     //获取精品歌单
     getHotlistData() {
       getHighquality(6).then(res => {
-        // console.log(res)
+        console.log(res)
         this.swiperOptions.snapSheet = {
           loop: false,
           threshold: 0.1
@@ -254,6 +256,15 @@ export default {
     //点击小圆点调用子组件事件
     setIndex(index) {
       this.$refs.swiperChild._setIndex(index);
+    },
+    //banner的点击事件
+    bannerClick(item) {
+      if(item.url !== null) {
+        window.location.assign(item.url);
+      }
+    },
+    localeString(value) {
+      return stringLocale(value)
     }
   },
   created() {
@@ -298,9 +309,25 @@ export default {
         width: 1200vw;
         height: 1.5rem;
         li {
+          position: relative;
           float: left;
+          height: 1.5rem;
           img {
+            height: 1.5rem;
             width: 100vw;
+            border-radius: 0.05rem
+          }
+          .typeTitle {
+            position: absolute;
+            padding: 0.05rem;
+            bottom: 0;
+            right: 0;
+            background-color: skyblue;
+            opacity: 0.9;
+            border-radius: 0.05rem 0;
+            font-size: 0.12rem;
+            line-height: 0.14rem;
+            color: #fff;
           }
         }
       }
@@ -329,6 +356,7 @@ export default {
   .menu {
     display: flex;
     justify-content: space-around;
+    margin: 0.15rem 0;
     & > span {
       // display: inline-block;
       display: flex;
@@ -365,11 +393,28 @@ export default {
             display: flex;
             justify-content: space-around;
             div {
+              position: relative;
               width: 30vw;
               font-size: 0.1rem;
               img {
                 width: 30vw;
                 height: 1.25rem;
+                border-radius: 0.04rem;
+              }
+              .sheet-playcount {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 0.02rem;
+                font-size: 0.12rem;
+                color: #f6f5ec;
+                & > span {
+                  margin-right: 0.02rem;
+                  &::before {
+                    font-size: 0.12rem;
+                  }
+                  
+                }
               }
             }
           }
@@ -435,6 +480,7 @@ export default {
               img {
                 width: 30vw;
                 height: 1.25rem;
+                border-radius: 0.04rem;
               }
             }
           }
@@ -462,6 +508,7 @@ export default {
             img {
               width: 100vw;
               height: 2rem;
+              border-radius: 0.04rem;
             }
           }
         }

@@ -25,6 +25,13 @@
       "font_class": "gedan",
       "unicode": "e516",
       "unicode_decimal": 58646
+    },
+    {
+      "icon_id": "13400995",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
     }
   ]
 }

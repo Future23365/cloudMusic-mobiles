@@ -1,10 +1,10 @@
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1594379116381'); /* IE9 */
-  src: url('iconfont.eot?t=1594379116381#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAQcAAsAAAAACJgAAAPOAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDHAqEVIN+ATYCJAMQCwoABCAFhG0HRxtvBxEVnDvJvsC24Q0iKAiSOhurOwCMwg4PJJDABwAAAAAEAdlV1ZjZHpzA6IUIdkidsweYUZHgeAfG6Wi2JUBnXGL9652IUBjBUO/8UP78Yu0PgMU5T2BMhBrJ2ZNHX0i7vO0gy+nicNpYuEDmWxZI6mtvjroA460B7Y1twMAKJEFvEc8mg/8JPA0BuKRSjOjUJZYEGDTqJAGIqZM6NYCJaNEFJIFR2BkrNaIFCyNXy2sAaHa+L75iEgYklkKd2XN8tAlo9z7254oaB8dDLQS87swAuw4UUAxoEBMzraNRXrQYhSv319QCBoOErjpqf64Eg8hfitRof3mgkAgQNmq+D0A1qhUbxjNYUPChlgUJH67wD+AcDYABwoEz8BmVyd24bAKW2isu3Hc8L8IPCfVJypg6V3njTLLlTXqbuaED1iw+XqAkdw8yQJtu1+CP3U0Db74zdLwXFVq3H6gWH0CH1e8DjLx8L33rfufbh1nbD/run53cLF6NLxtu3d7xEdqrP3Ke9IlU9B7TfN0DJCx+SKi/T1h0r3Jws/R++/tZ4A0HOiuRi/YW6mLTK6Hj9qip5bWUpdF+3f7JiRy7a9/4sOnSKDRn7pFu4LCRw6u0QbHyf0r0Nwz2NNW956yVykZShH20+4CnsHe6645OH12HctKMCa0KnWrId0Lqxzab3bqjHBBvAoHJ2tn1emuCu+Ppu/vZw9W4rOSs0NVRxorIxmCXzJTMW6vTDRUMyNf1FgaDwnhJVwUDorgoYAKIYC/tnPe+CXxo375vrwwVLkxOGVzQj20wO7NF3IpozcIjb8xfOahf/pN91CHd494Za65GtEUtwFVamW2/bk0ItYbi0r0Vv23mSwNmop6lFikBwdUB5QCoM/LRJ/AbUkb8doNv9d94GoCnpTMzjje4pjr3OfJk3gPnVazQikDVaS0JDe4vVzOUAFy/Qlxc4DEnIZIXXdhjIDALDMcDkARIAYUhG6mxxWDhUQ02hrbgUkTX9R5RzEYhtAMUspyAIJwjIAnlHCjCuY7U2OdgEct3sAkXClz6i6gdPXIBgnYHRiVoQf+BTNc63SA7t/CK/h0VhwUO9Yk8UgDKrIgnLtgidzFn/PhKxIHjLsGZnIcxdtBz90IjWSPS13nusl6UmS5NdhwYlaAF9B8g07XOqi27xOev6N9RcUFZmf2JPFL3QElGUQF5kbaVyk7lkvHjK0Qc4LhLwJmYMWrRDuizh73QSEbTINzX5FjNVZVmw8vTGa4DXNSdtJBCCS0s9jMV/aj1WhmmtSVrkChaerSqnUwAAAA=') format('woff2'),
-  url('iconfont.woff?t=1594379116381') format('woff'),
-  url('iconfont.ttf?t=1594379116381') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url('iconfont.svg?t=1594379116381#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1594558867843'); /* IE9 */
+  src: url('iconfont.eot?t=1594558867843#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAASoAAsAAAAACVwAAARcAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDMgqFdIRxATYCJAMUCwwABCAFhG0HUBsFCMgekiRIQAEFEigAoDHHw/djv859hkpTi3SfjicyCQ8FQoNYfLe0zesl/P//N/USolAXZlZxTVPRyINSI4dS8WTz1OeuX6KfW+uv/3+OmS4KCyS/zQYy1YzCoL0Bjgc0m0XVHR2VHdgdyIn6LcNrXarDPk2g17SpsIOkDCXIFWRSIK5YRg3yhF6pIIVuVStYWSBeQKI7zRPdBPDs/X78B7+Qg6RmIGcdXibqIOanw+dLuGHEoCzPAONwVvDryNgECvFQaL+CB/FNuF61v9gO0Ktbkobq5vo56POlkREi8YaUvfQfHlmRBNGAyPsxdkdbHJzAYpH55cqi8CuIqzr8ugTCa5FXPL4Xo8A/gFhA2MWKrOmSKunlaGWmIElrM3MLM1ThZK81ETiJbLKEZL9Nh0XhEuN2k51y404n0ap7gZZHHnjiq++XGbYSFqbtGG7cQVr2boOq7w+pdY8SrzwZs/6xcvNp45neU4aTWsK01bCNJHv37FaGRHtyi4UzPcYE4xNC7yOC4WFjSbfsgs3bXfAVOwarED1tLTU5qBbHjttkX7Boqd1CjZlpu3HHBPNN2wxbdQSLIjmL71Y/fqySGA+47rhx5doktMj+3MMM3carxMJ2k93BiVudxLN/ny1TmB1PJi92oLeHY+VV3ac8u8oq/58Y/a+80vwkBBw3BFZWLndNcN22eYvHROlGYtne2r3LCC9LLrfwt6izlBsh80vU2swsQgHStUBwdtk57M5dJpyJaAlvKdo6z2KM2xiLeba+vjb90S6j3UffnUf5+ELhqlfeqNjYUXnlpiY2RpaWSZgYRGyvae3vlPmWFkrl27eWxsJSzeg6AQXWwex5ZL3OGtXLbG53Ld7pvejXTveoXV43tnJLLlvToxFcBjRPR3stiaGWUMK8Pkg/dPtiFbg9xmJFKlHsdRerP8Hln9dOv0o/36k1b3W6SkeDC1j4JsnRDYRaXnPUGX4suIquypMbqpuu0gugFXlVfsIx0Jl34ApAfhU9BejIc/AZ/9HfaC1OX2kZ8VdOigF++E5e4Hk7CjSTw8+g0Fjw1wgaNhRNRAy1KLUWXymsLsi498IfpOpfcY96PYxzAkTW0C0IAJIuU5B1W0QW7CZUfbag6bYNvTYkr+8zhoeLogDWzUIQhu2BZNA7ZMNuIQv2FVSTvkIzHDj0Og/bHfssB0vE80gtIB2laaNYLddAmyaB8EvzENNUp+bjIo+qQnwjG6J8vXzSqWTUgPgh5jQ2M36CQFM0z9VTSeg8VFfHUXqeq0FawataEPRh3t500Rt5abl6IOzjIWoCRIei0YbC0uI0oJ3WAiLz83kQRpM6anxFXZVdBeE1Yjun+PLi0wCZLG9oVHcp/Rs1Y/gRCGhmHI3HqUdJAitSR+Mcir54WA1ES+ClukNUL4w3bkY3lXtNr6y/x23Qi+xYQ4ThmBiTYFLou1OzrWwDo1FbFpmOdfoLalbCIJ26Qarh6BwdAA==') format('woff2'),
+  url('iconfont.woff?t=1594558867843') format('woff'),
+  url('iconfont.ttf?t=1594558867843') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1594558867843#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -25,5 +25,9 @@
 
 .icon-gedan:before {
   content: "\e516";
+}
+
+.icon-bofang:before {
+  content: "\e61b";
 }
 
