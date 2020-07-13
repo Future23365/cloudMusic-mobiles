@@ -156,7 +156,9 @@ export default {
       let that = this; //保存执行环境的this
       //滚动结束事件
       this.scroll.on('scrollEnd', function(e) {
-        that.$emit('scrollToEnd', e.x/-375 - 1);  //获取当前移动的位置
+        let inf = this.getCurrentPage(); //获取当前页面信息
+        let pw = -inf.x / (inf.pageX + 1); //获取一个轮播图宽度
+        that.$emit('scrollToEnd', e.x/-pw - 1);  //获取当前移动的位置
       });
       if (this.autoPlay) {
         this._play();

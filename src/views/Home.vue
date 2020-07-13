@@ -73,39 +73,18 @@
         ref="swiperChildsongs"
       >
         <ul class="content-songs">
-          <li>
-            <div v-for="(item, index) in newSongData.a" :key="index">
+          <li v-for="(jtem, jndex) in newSongData" :key="jndex">
+            <div v-for="(item, index) in jtem" :key="index">
               <img :src="item.picUrl" alt="" />
               <div>
-                <span>{{ item.name }}</span>
-                <br />
-                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">
+                <span>
+                  {{ item.name }}
+                  <br />
+                  <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">
                   {{ jtem.name }}
+                  </span>
                 </span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div v-for="(item, index) in newSongData.b" :key="index">
-              <img :src="item.picUrl" alt="" />
-              <div>
-                <span>{{ item.name }}</span>
-                <br />
-                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">
-                  {{ jtem.name }}
-                </span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div v-for="(item, index) in newSongData.c" :key="index">
-              <img :src="item.picUrl" alt="" />
-              <div>
-                <span>{{ item.name }}</span>
-                <br />
-                <span v-for="(jtem, jndex) in item.song.artists" :key="jndex">
-                  {{ jtem.name }}
-                </span>
+                <span class="iconPlay"><span></span></span>
               </div>
             </div>
           </li>
@@ -130,6 +109,7 @@
                 <img :src="item.blurPicUrl" alt="" />
                 <br />
                 {{ item.name }}
+                <span>{{item.artist.name}}</span>
               </div>
             </li>
           </ul>
@@ -151,8 +131,11 @@
           <li v-for="(item, index) in mvData" :key="index">
             <div>
               <img :src="item.picUrl" alt="" />
+              <br />
               {{ item.name }}
+              <div>{{item.copywriter}}</div>
             </div>
+            <span class="iconMv"><span></span></span>
           </li>
         </ul>
       </Swiper>
@@ -251,6 +234,8 @@ export default {
       this.swiperIndex = index;
       if (this.swiperIndex >= this.bannersData.length) {
         this.swiperIndex = 0;
+      }else if (this.swiperIndex < 0) {
+        this.swiperIndex = this.bannersData.length - 1;
       }
     },
     //点击小圆点调用子组件事件
@@ -424,6 +409,7 @@ export default {
   }
   .title {
     margin-top: 0.2rem;
+    margin-bottom: 0.1rem;
   }
   .find-songs {
     .wrapper-songs {
@@ -447,9 +433,34 @@ export default {
               border-radius: 0.04rem;
             }
             div {
-              // background-color: #666;
-              display: inline-block;
+              // display: inline-block;
               width: 100vw - 18.6666667vw;
+              float: right;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              .iconPlay {
+                width: 0.22rem;
+                height: 0.22rem;
+                // text-align: center;
+                // line-height: 0.24rem;
+                margin-right: 0.0619rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid #f6f5ec;
+                border-radius: 50%;
+                span {
+                  // display: inline-block;
+                  height: 0;
+                  width: 0;
+                  margin-right: -0.03rem;
+                  border: 0.06rem solid transparent;
+                  border-left:0.12rem solid #6f60aa;
+                  border-right: 0;
+                  // border-radius: 0.02rem;
+                }
+              }
             }
           }
         }
@@ -475,12 +486,23 @@ export default {
             display: flex;
             justify-content: space-around;
             div {
+              position: relative;
               width: 30vw;
               font-size: 0.1rem;
               img {
                 width: 30vw;
                 height: 1.25rem;
                 border-radius: 0.04rem;
+              }
+              span {
+                position: absolute;
+                right: 0;
+                bottom: -0.13rem;
+                padding: 0.02rem;
+                vertical-align: bottom;
+                font-size: 0.08rem;
+                color: #fff;
+                background-color: rgba($color: #d3d7d4, $alpha: 1);
               }
             }
           }
@@ -489,26 +511,59 @@ export default {
     }
   }
   .find-mv {
+    overflow: hidden;
     .wrapper-mv {
       width: 100vw;
-      height: 2rem;
-      // overflow: hidden;
+      // height: 2.1rem;
+      overflow: hidden;
+      // padding-bottom: 0.02rem;
       .content-mv {
-        height: 2rem;
-        // overflow: hidden;
+        // height: 2.1rem;
+        overflow: hidden;
         width: 400vw;
         li {
+          position: relative;
           float: left;
           width: 100vw;
+          // height: 2.1rem;
           // display: flex;
           // justify-content: space-around;
           div {
-            width: 30vw;
+            width: 300vw;
             font-size: 0.1rem;
+            // height: 2.1rem;
             img {
               width: 100vw;
               height: 2rem;
               border-radius: 0.04rem;
+            }
+            div {
+              color: #666;
+              font-size: 0.08rem;
+            }
+          }
+          .iconMv {
+            position: absolute;
+            right: 0;
+            top: 1.7181rem;
+            width: 0.22rem;
+            height: 0.22rem;
+            margin-right: 0.0619rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // border: 2px solid #f6f5ec;
+            background-color: rgba($color: #d3d7d4, $alpha: 1);
+            border-radius: 50%;
+            span {
+              // display: inline-block;
+              height: 0;
+              width: 0;
+              margin-right: -0.03rem;
+              border: 0.06rem solid transparent;
+              border-left:0.12rem solid #6f60aa;
+              border-right: 0;
+              // border-radius: 0.02rem;
             }
           }
         }
