@@ -116,7 +116,7 @@
         </div>
       </Swiper>
     </div>
-    <div class="title">发现新MV</div>
+    <div class="title">推荐MV</div>
     <div class="find-mv">
       <Swiper
         class="wrapper-mv"
@@ -133,7 +133,7 @@
               <img :src="item.picUrl" alt="" />
               <br />
               {{ item.name }}
-              <div>{{item.copywriter}}</div>
+              <div>{{item.artistName}}</div>
             </div>
             <span class="iconMv"><span></span></span>
           </li>
@@ -273,6 +273,7 @@ export default {
 <style lang="scss" scoped>
 #home {
   overflow: hidden;
+  // background-color: #7bbfea;
   ul {
     padding: 0;
     margin: 0;

@@ -200,6 +200,12 @@ export const getPersonalizedMv = () => {
     url: `/personalized/mv`
   });
 };
+//获取云村热评
+export const getHotwall = () => {
+  return server(({
+    url: `/comment/hotwall/list`
+  }));
+};
 
 //并发请求
 export const serverAll = arr => {

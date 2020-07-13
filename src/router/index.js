@@ -17,7 +17,15 @@ const routes = [
   {
     path: "/Yuncun",
     name: "Yuncun",
-    component: () => import("@/views/Yuncun.vue")
+    component: () => import("@/views/Yuncun.vue"),
+    children: [
+      {
+        path: "Hotwall",
+        name: "Hotwall",
+        component: () => import("@/components/Hotwall.vue")
+      }
+      
+    ]
   },
   {
     path: "/Video",

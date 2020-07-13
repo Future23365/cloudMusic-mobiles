@@ -119,6 +119,7 @@ export default {
         momentum: this.momentum, //一次滑动一张
         eventPassthrough: this.eventPassthrough
       });
+      console.log(this.snap)
       // 是否派发滚动事件
       if (this.listenScroll) {
         let me = this;
