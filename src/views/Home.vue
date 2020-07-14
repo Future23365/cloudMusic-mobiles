@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="menu">
-      <span><span class="iconfont icon-gedan"></span>歌单</span>
+      <span @click="goPlaylist"><span class="iconfont icon-gedan"></span>歌单<router-view></router-view></span>
       <span><span class="iconfont icon-paixingbang"></span>排行榜</span>
       <span><span class="iconfont icon-diantai"></span>电台</span>
     </div>
@@ -250,10 +250,16 @@ export default {
         window.location.assign(item.url);
       }
     },
+    //播放数量换算
     localeString(value) {
       return stringLocale(value)
+    },
+    //点击歌单
+    goPlaylist() {
+     this.$router.push('/Home/Playlist')
     }
   },
+
   created() {
     this.getBannerData();
     this.getHotlistData();

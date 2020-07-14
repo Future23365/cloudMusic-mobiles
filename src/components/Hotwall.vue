@@ -56,12 +56,14 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
+    //获取热评墙数据
     getHhoteallData() {
       getHotwall().then(res => {
         console.log(res);
         this.hotwallData = res.data
       })
     },
+    //转换css
     getBgcimg(size) {
       return `url(${size})`
     }
@@ -97,6 +99,7 @@ export default {
     position: absolute;
     margin: 0.05rem 0;
     z-index: 6;
+    color: #fff;
     span {
       &::before {
         margin: 0 0.02rem;

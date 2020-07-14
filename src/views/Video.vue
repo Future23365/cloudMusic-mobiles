@@ -28,11 +28,18 @@
       >
         <ul class="content-allmv">
           <li v-for="(item, index) in allmvData" :key="index">
-            <span class="playcount"><span class="iconfont icon-bofang"></span>{{localeString(item.playCount)}}</span>
-            <img :src="item.cover" alt="">
-            <span class="time">{{transTime(item.duration / 1000)}}</span>
-            <div class="name">{{item.name}}</div>
-            <div class="artistname">{{item.artistName}}</div>
+            <Card
+              :showPlaycount="true"
+              :showTime="true"
+              :showartistName="true"
+              :dataPlaycount="item.playCount"
+              :dataImg="item.cover"
+              :dataTime="item.duration"
+              :dataName="item.name"
+              :dataArtistName="item.artistName"
+              :imgWidth="width"
+              :imgHeight="height"
+            ></Card>
           </li>
           <div style="text-align: center">{{load}}</div>
         </ul>
@@ -44,10 +51,12 @@
 import { getAllmv } from "@/request/getdata";
 import Swiper from "@/components/Swiper";
 import { stringLocale, tochance } from "@/tool/tools";
+import Card from "@/components/Card";
 export default {
   name: 'Video',
   components: {
-    Swiper
+    Swiper,
+    Card
   },
   data() {
     return {
@@ -68,7 +77,9 @@ export default {
         limit: 30,
         offset: 0
       },
-      load: '努力加载中...'
+      load: '努力加载中...',
+      height: '1rem',
+      width: '1.8rem'
     }
   },
   methods: {
@@ -206,50 +217,6 @@ export default {
         height: 1.5rem;
         &:nth-of-type(2n) {
           margin-left: 0rem;
-        }
-        img {
-          width: 1.8rem;
-          height: 1rem;
-        }
-        div {
-          width: 1.8rem;
-        }
-        .name {
-          height: 0.14rem;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          font-size: 0.12rem;
-        }
-        .artistname {
-          height: 0.12rem;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          font-size: 0.1rem;
-          
-        }
-        .playcount, .time {
-          position: absolute;
-          padding: 0.02rem;
-          font-size: 0.12rem;
-          color: #f6f5ec;
-          
-          & > span {
-            margin-right: 0.02rem;
-            &::before {
-              font-size: 0.12rem;
-            }   
-          }
-        }
-        .playcount {
-          top: 0;
-          right: 0;
-          background-color: rgba($color: #666, $alpha: 0.8);
-        }
-        .time {
-          left: 0;
-          top: 1rem - 0.18rem;
         }
       }
     }

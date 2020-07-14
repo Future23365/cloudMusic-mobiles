@@ -13,6 +13,13 @@ const routes = [
     path: "/Home",
     name: "Home",
     component: Home,
+    children: [
+      {
+        path: "Playlist",
+        name: "Playlist",
+        component: () => import("@/components/Playlist.vue")
+      }
+    ]
   },
   {
     path: "/Yuncun",
