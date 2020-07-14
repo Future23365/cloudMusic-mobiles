@@ -207,6 +207,13 @@ export const getHotwall = () => {
   }));
 };
 
+//获取全部MV
+export const getAllmv = (area = '全部', type = '全部', order = '上升最快', limit = 30, offset = 0) => {
+  return server({
+    url: `/mv/all?area=${area}&type=${type}&order=${order}&limit=${limit}&offset=${offset}`
+  })
+}
+
 //并发请求
 export const serverAll = arr => {
   return axios.all(arr);

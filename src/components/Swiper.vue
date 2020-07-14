@@ -79,16 +79,24 @@ export default {
       type: String,
       default: ''
     },
+    //配置参数
     snap: {
       default: false
     },
+    //自动播放
     autoPlay: {
       type: Boolean,
       default: false
     },
+    //一次滚动一张
     momentum: {
       type: Boolean,
       default: true
+    },
+    //是否需要获取小红点
+    broadwise: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -100,10 +108,10 @@ export default {
     // 保证在DOM渲染完毕后初始化better-scroll
     setTimeout(() => {
       this._initScroll();
+      setTimeout(() => {
+        this.refresh();
+      }, 100)
     }, 100);
-    // this.$nextTick(function() {
-    //   this._initScroll()
-    // })
   },
   methods: {
     _initScroll() {
@@ -119,7 +127,6 @@ export default {
         momentum: this.momentum, //一次滑动一张
         eventPassthrough: this.eventPassthrough
       });
-      console.log(this.snap)
       // 是否派发滚动事件
       if (this.listenScroll) {
         let me = this;
@@ -133,7 +140,7 @@ export default {
         this.scroll.on('scrollEnd', () => {
           // 滚动到底部
           if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
-            this.$emit('scrollToEnd');
+            this.$emit('scrollToEnded');
           }
         });
       }
@@ -154,13 +161,15 @@ export default {
           this.$emit('beforeScroll');
         });
       }
-      let that = this; //保存执行环境的this
-      //滚动结束事件
-      this.scroll.on('scrollEnd', function(e) {
-        let inf = this.getCurrentPage(); //获取当前页面信息
-        let pw = -inf.x / (inf.pageX + 1); //获取一个轮播图宽度
-        that.$emit('scrollToEnd', e.x/-pw - 1);  //获取当前移动的位置
-      });
+      if (this.broadwise) {
+        let that = this; //保存执行环境的this
+        //滚动结束事件
+        this.scroll.on('scrollEnd', function(e) {
+          let inf = this.getCurrentPage(); //获取当前页面信息
+          let pw = -inf.x / (inf.pageX + 1); //获取一个轮播图宽度
+          that.$emit('scrollToEnd', e.x/-pw - 1);  //获取当前移动的位置
+        });
+      }
       if (this.autoPlay) {
         this._play();
       }
@@ -219,8 +228,12 @@ export default {
     data() {
       setTimeout(() => {
         this.refresh();
-        // console.log(this.scroll)
-        // console.log('重新渲染')
+      }, this.refreshDelay);
+      /*
+       * 不知道为什么，进入页面重新渲染之后滚动有问题，渲染两次情况有所改善，但貌似有时候还是需要重新刷新页面
+       */
+      setTimeout(() => {
+        this.refresh();
       }, this.refreshDelay);
     }
   }

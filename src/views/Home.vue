@@ -11,6 +11,7 @@
         :eventPassthrough="vertical"
         :snap="swiperOptions.snap"
         @scrollToEnd="getIndex"
+        :broadwise="true"
         ref="swiperChild"
       >
         <ul class="content" :style="{ width: swiperLength }">
@@ -152,7 +153,7 @@ import {
   getNewwest,
   getPersonalizedMv
 } from "@/request/getdata";
-import { stringLocale } from "@/tool/tools"
+import { stringLocale } from "@/tool/tools";
 import Swiper from "@/components/Swiper";
 export default {
   name: 'Home',
@@ -167,7 +168,28 @@ export default {
       albumData: [],
       mvData: [],
       vertical:'vertical',
-      swiperOptions: {},
+      swiperOptions: {
+        snap: {
+          loop: true,
+          threshold: 0.2
+        },
+        snapSheet: {
+          loop: false,
+          threshold: 0.1
+        },
+        snapSongs: {
+          loop: false,
+          threshold: 0.1
+        },
+        snapAlbum: {
+          loop: false,
+          threshold: 0.1
+        },
+        snapMv: {
+          loop: false,
+          threshold: 0.1
+        }
+      },
       swiperIndex: 0
     };
   },
@@ -176,10 +198,6 @@ export default {
     getBannerData() {
       getBanner().then(res => {
         console.log(res);
-        this.swiperOptions.snap = {
-          loop: true,
-          threshold: 0.2
-        };
         this.bannersData = res.banners;
       });
     },
@@ -187,10 +205,6 @@ export default {
     getHotlistData() {
       getHighquality(6).then(res => {
         console.log(res)
-        this.swiperOptions.snapSheet = {
-          loop: false,
-          threshold: 0.1
-        };
         this.songsheetData = res.playlists;
       });
     },
@@ -198,10 +212,6 @@ export default {
     getNewsongData() {
       getsongNew().then(res => {
         console.log(res);
-        this.swiperOptions.snapSongs = {
-          loop: false,
-          threshold: 0.1
-        };
         this.newSongData.a = res.result.slice(0, 3);
         this.newSongData.b = res.result.slice(3, 6);
         this.newSongData.c = res.result.slice(6, 9);
@@ -212,20 +222,12 @@ export default {
       getNewwest().then(res => {
         console.log(res);
         this.albumData = res.albums;
-        this.swiperOptions.snapAlbum = {
-          loop: false,
-          threshold: 0.1
-        };
       });
     },
     //获取推荐MV
     getRecommentMv() {
       getPersonalizedMv().then(res => {
         console.log(res);
-        this.swiperOptions.snapMv = {
-          loop: false,
-          threshold: 0.1
-        };
         this.mvData = res.result;
       });
     },

@@ -1,15 +1,258 @@
 <template>
   <div id="video">
-    我是视频
+    <div class="title">
+      MV
+      <span>{{titleShow.area}}</span>・
+      <span>{{titleShow.type}}</span>・
+      <span>{{titleShow.order}}</span>
+      <span class="choose" @click.stop="showChoose = !showChoose">
+        筛选
+        <div :class="showChoose ? 'setTop' : ''" @click.stop="">
+          地区：<br />
+          <div><span v-for="(item, index) in allType.area" :key="index" :class="item === (temChoose.area || titleShow.area) ? 'ischoose' : ''" @click.stop="settemChoose(1, item)">{{item}}</span></div>
+          类型：<br />
+          <div><span v-for="(item, index) in allType.type" :key="index" :class="item === (temChoose.type || titleShow.type) ? 'ischoose' : ''" @click.stop="settemChoose(2, item)">{{item}}</span></div>
+          排序：<br />
+          <div><span v-for="(item, index) in allType.order" :key="index" :class="item === (temChoose.order || titleShow.order) ? 'ischoose' : ''" @click.stop="settemChoose(3, item)">{{item}}</span></div>
+          <div class="sure" @click="requestAgain">完成</div>
+        </div>
+      </span>
+    </div>
+    <Swiper
+        class="wrapper-allmv"
+        :data="allmvData"
+        :probeType="2"
+        :pullup="true"
+        @scrollToEnded="againRe"
+        ref="swiperChildAllmv"
+      >
+        <ul class="content-allmv">
+          <li v-for="(item, index) in allmvData" :key="index">
+            <span class="playcount"><span class="iconfont icon-bofang"></span>{{localeString(item.playCount)}}</span>
+            <img :src="item.cover" alt="">
+            <span class="time">{{transTime(item.duration / 1000)}}</span>
+            <div class="name">{{item.name}}</div>
+            <div class="artistname">{{item.artistName}}</div>
+          </li>
+          <div style="text-align: center">{{load}}</div>
+        </ul>
+      </Swiper>
   </div>
 </template>
 
 <script>
+import { getAllmv } from "@/request/getdata";
+import Swiper from "@/components/Swiper";
+import { stringLocale, tochance } from "@/tool/tools";
 export default {
-  name: 'Video'
+  name: 'Video',
+  components: {
+    Swiper
+  },
+  data() {
+    return {
+      titleShow: {
+        area: '全部',
+        type: '全部',
+        order: '上升最快'
+      },
+      allType: {
+        area: ['全部', '内地', '港台', '欧美', '日本', '韩国'],
+        type: ['全部', '官方版', '原生', '现场版', '网易出品'],
+        order: ['上升最快', '最热', '最新']
+      },
+      allmvData: [],
+      temChoose: {},
+      showChoose: false,
+      againRequset: {
+        limit: 30,
+        offset: 0
+      },
+      load: '努力加载中...'
+    }
+  },
+  methods: {
+    getMvData(obj) {
+      if(obj) {
+        getAllmv(obj.area, obj.type, obj.order, obj.limit, obj.offset).then(res => {
+          console.log(res);
+          for (let value of res.data) {
+            this.allmvData.push(value)
+          }
+          if(res.hasMore === false) {
+            this.load = '没有更多啦！'
+          }
+        }, reject => {
+          console.log(reject)
+        })
+      }else {
+        getAllmv().then(res => {
+          console.log(res);
+          this.allmvData = res.data;
+        })
+      }
+    },
+    settemChoose(type, value) {
+      switch(type) {
+        case 1:
+          this.$set(this.temChoose,'area',value)
+          break;
+        case 2:
+          this.$set(this.temChoose,'type',value)
+          break;
+        case 3:
+          this.$set(this.temChoose,'order',value)
+          break;
+      }
+    },
+    requestAgain() {
+      if(Object.keys(this.temChoose).length) {
+        this.temChoose.limit = 30;
+        this.temChoose.offset = 0;
+        this.allmvData = [];
+        this.getMvData(this.temChoose);
+        this.temChoose.area ? this.$set(this.titleShow, 'area', this.temChoose.area) : '';
+        this.temChoose.type ? this.$set(this.titleShow, 'type', this.temChoose.type) : '';
+        this.temChoose.order ? this.$set(this.titleShow, 'order', this.temChoose.order) : '';
+        this.temChoose = {};
+      }
+      this.showChoose = false;
+    },
+    localeString(value) {
+      return stringLocale(value)
+    },
+    transTime(time) {
+      return tochance(time);
+    },
+    againRe() {
+      this.againRequset.offset += 30;
+      let obj = {
+        area: this.titleShow.area,
+        type: this.titleShow.type,
+        order: this.titleShow.order,
+        limt: this.againRequset.limit,
+        offset: this.againRequset.offset
+      }
+      this.getMvData(obj);
+    }
+  },
+  created() {
+    this.getMvData()
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-
+#video {
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+  overflow: hidden;
+  .title {
+    position: relative;
+    height: 0.2rem;
+    line-height: 0.2rem;
+    z-index: 1;
+    background-color: #fff;
+    .choose {
+      float: right;
+      // border: 1px solid #666;
+      .setTop {
+        top: 0.2rem;
+      }
+      & > div {
+        position: absolute;
+        // overflow: hidden;
+        height: 1.41rem;
+        width: 100%;
+        top: -2.16rem;
+        left: 0;
+        // padding-left: 0.1rem;
+        background-color: #6f599c;
+        color: #fff;
+        transition: top 0.5s;
+        div {
+          span {
+            margin-right: 0.2rem;
+          }
+          .ischoose {
+            color: #9b95c9;
+          }
+        }
+        .sure {
+          width: 100%;
+          border-top: 1px solid #666;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .wrapper-allmv {
+    width: 100vw;
+    height: 5.92rem;
+    .content-allmv {
+      overflow: hidden;
+      li {
+        position: relative;
+        // display: inline-block;
+        float: left;
+        margin: 0 0.05rem;
+        height: 1.5rem;
+        &:nth-of-type(2n) {
+          margin-left: 0rem;
+        }
+        img {
+          width: 1.8rem;
+          height: 1rem;
+        }
+        div {
+          width: 1.8rem;
+        }
+        .name {
+          height: 0.14rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: 0.12rem;
+        }
+        .artistname {
+          height: 0.12rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: 0.1rem;
+          
+        }
+        .playcount, .time {
+          position: absolute;
+          padding: 0.02rem;
+          font-size: 0.12rem;
+          color: #f6f5ec;
+          
+          & > span {
+            margin-right: 0.02rem;
+            &::before {
+              font-size: 0.12rem;
+            }   
+          }
+        }
+        .playcount {
+          top: 0;
+          right: 0;
+          background-color: rgba($color: #666, $alpha: 0.8);
+        }
+        .time {
+          left: 0;
+          top: 1rem - 0.18rem;
+        }
+      }
+    }
+  }
+}
 </style>

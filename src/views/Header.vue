@@ -42,6 +42,19 @@ export default {
           break;
       }
     },
+  },
+  mounted() {
+    console.log(this.$route.path)
+    this.$nextTick(function() {
+      if(this.$route.path === '/Home') {
+      this.spanClass === 1;
+    }else if(this.$route.path === '/Yuncun') {
+      this.spanClass === 2;
+    }else if(this.$route.path === '/Video') {
+      this.spanClass === 3;
+    }
+    })
+    
   }
 }
 </script>
