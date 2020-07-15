@@ -214,6 +214,19 @@ export const getAllmv = (area = '全部', type = '全部', order = '上升最快
   })
 }
 
+//获取歌单分类
+export const getCatlist = () => {
+  return server({
+    url: `/playlist/catlist`
+  })
+}
+//获取歌单
+export const getPlaylist = (cat = '全部', limit = 30, offset = 0) => {
+  return server({
+    url: `/top/playlist?cat=${cat}&limit=${limit}&offset=${offset}`
+  })
+}
+
 //并发请求
 export const serverAll = arr => {
   return axios.all(arr);

@@ -3,7 +3,7 @@
     <span class="playcount" v-if="showPlaycount"><span class="iconfont icon-bofang"></span>{{localeString(dataPlaycount)}}</span>
     <img :src="dataImg" alt="" :style="{'width': imgWidth, 'height': imgHeight}">
     <span class="time" v-if="showTime">{{transTime(dataTime / 1000)}}</span>
-    <div class="name">{{dataName}}</div>
+    <div class="name" :style="{'width': imgWidth}">{{dataName}}</div>
     <div class="artistname">{{dataArtistName}}</div>
   </div>  
 </template>

@@ -1,8 +1,6 @@
 <template>
   <div id="hotwall" >
-    <div class="title">
-      <span class="iconfont icon-fanhui" @click="goBack"></span>热评墙
-    </div>
+    <Back :text="'热评墙'"></Back>
     <Swiper
         class="wrapper-hotwall"
         :data="hotwallData"
@@ -34,10 +32,12 @@
 <script>
 import Swiper from "@/components/Swiper";
 import { getHotwall } from "@/request/getdata";
+import Back from "@/components/Back";
 export default {
   name: 'Hotwall',
   components: {
-    Swiper
+    Swiper,
+    Back
   },
   data() {
     return {
@@ -95,18 +95,6 @@ export default {
   background-color: #666;
   line-height: 0.12rem;
   font-size: 0.12rem;
-  .title {
-    position: absolute;
-    margin: 0.05rem 0;
-    z-index: 6;
-    color: #fff;
-    span {
-      &::before {
-        margin: 0 0.02rem;
-        font-size: 0.12rem;
-      }
-    }
-  }
   .wrapper-hotwall {
     // overflow: hidden;
     width: 100vw;
@@ -125,7 +113,7 @@ export default {
           width: 100vw;
           height: 100vh;
           background-size: cover;
-          filter: blur(0.08rem) brightness(70%);
+          filter: blur(0.5rem) brightness(70%);
         }
         .mai {
           position: absolute;

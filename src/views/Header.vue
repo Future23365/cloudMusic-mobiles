@@ -31,20 +31,20 @@ export default {
         case '2':
           this.spanClass = 2;
           if(this.$route.path !== '/Yuncun') {
-            this.$router.push('/Yuncun');
+            this.$router.push('/Home/Yuncun');
           }
           break;
         case '3':
           this.spanClass = 3;
           if(this.$route.path !== '/Video') {
-            this.$router.push('/Video');
+            this.$router.push('/Home/Video');
           }
           break;
       }
     },
   },
   mounted() {
-    console.log(this.$route.path)
+    // console.log(this.$route.path)
     this.$nextTick(function() {
       if(this.$route.path === '/Home') {
       this.spanClass === 1;

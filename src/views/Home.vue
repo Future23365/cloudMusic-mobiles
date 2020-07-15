@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="menu">
-      <span @click="goPlaylist"><span class="iconfont icon-gedan"></span>歌单<router-view></router-view></span>
+      <span @click="goPlaylist"><span class="iconfont icon-gedan"></span>歌单</span>
       <span><span class="iconfont icon-paixingbang"></span>排行榜</span>
       <span><span class="iconfont icon-diantai"></span>电台</span>
     </div>
@@ -256,7 +256,7 @@ export default {
     },
     //点击歌单
     goPlaylist() {
-     this.$router.push('/Home/Playlist')
+     this.$router.push('/Playlist')
     }
   },
 

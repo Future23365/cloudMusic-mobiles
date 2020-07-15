@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <Header></Header>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -9,12 +8,9 @@
 </template>
 
 <script>
-import Header from "@/views/Header";
+// import Enter from "@/views/Enter"
 
 export default {
-  components: {
-    Header
-  },
   data() {
     return {};
   },
@@ -23,6 +19,15 @@ export default {
 </script>
 
 <style lang="scss">
+ul {
+  padding: 0;
+  margin: 0;
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

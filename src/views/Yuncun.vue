@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     goHotwall() {
-      this.$router.push('/Yuncun/Hotwall');
+      this.$router.push('/Home/Yuncun/Hotwall');
     }
   },
 }
