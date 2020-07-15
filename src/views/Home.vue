@@ -34,7 +34,7 @@
     </div>
     <div class="menu">
       <span @click="goPlaylist"><span class="iconfont icon-gedan"></span>歌单</span>
-      <span><span class="iconfont icon-paixingbang"></span>排行榜</span>
+      <span @click="goToplist"><span class="iconfont icon-paixingbang"></span>排行榜</span>
       <span><span class="iconfont icon-diantai"></span>电台</span>
     </div>
     <div class="title">发现好歌单</div>
@@ -50,7 +50,7 @@
       >
         <div class="content-songsheetpar">
           <ul class="content-songsheet">
-            <li v-for="(item, index) in songsheetData" :key="index">
+            <li v-for="(item, index) in songsheetData" :key="index" @click="goListDetail(item.id)">
               <div>
                 <img :src="item.coverImgUrl" alt="" />
                 <br />{{ item.name }}
@@ -257,6 +257,19 @@ export default {
     //点击歌单
     goPlaylist() {
      this.$router.push('/Playlist')
+    },
+    //点击排行榜
+    goToplist() {
+      this.$router.push('/Toplist')
+    },
+    //点击歌单
+    goListDetail(id) {
+      this.$router.push({
+        path: '/Detail',
+        query: {
+          id: id
+        }
+      })
     }
   },
 

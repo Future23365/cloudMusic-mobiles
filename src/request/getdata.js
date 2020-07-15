@@ -26,13 +26,6 @@ export const getsongNew = () => {
   });
 };
 
-//
-export const getToplist = () => {
-  return server({
-    url: `/toplist`
-  });
-};
-
 //获取歌曲排行榜
 export const getsongTop = id => {
   return server({
@@ -224,6 +217,20 @@ export const getCatlist = () => {
 export const getPlaylist = (cat = '全部', limit = 30, offset = 0) => {
   return server({
     url: `/top/playlist?cat=${cat}&limit=${limit}&offset=${offset}`
+  })
+}
+
+//获取排行榜
+export const getToplist = () => {
+  return server({
+    url: `/toplist`
+  })
+}
+
+//获取歌曲批量详情
+export const getSongDetailall = (arr) => {
+  return server({
+    url: `/song/detail?ids=${arr.join(',')}`
   })
 }
 

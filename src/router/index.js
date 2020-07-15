@@ -42,6 +42,16 @@ const routes = [
     path: "/Playlist",
     name: "Playlist",
     component: () => import("@/components/Playlist")
+  },
+  {
+    path: "/Toplist",
+    name: "Toplist",
+    component: () => import("@/components/Toplist")
+  },
+  {
+    path: "/Detail",
+    name: "Detail",
+    component: () => import("@/components/Detail")
   }
 ];
 

@@ -1,15 +1,14 @@
 <template>
   <div id="card">
-    <span class="playcount" v-if="showPlaycount"><span class="iconfont icon-bofang"></span>{{localeString(dataPlaycount)}}</span>
+    <span class="playcount" v-if="showPlaycount"><span class="iconfont icon-bofang"></span>{{dataPlaycount}}</span>
     <img :src="dataImg" alt="" :style="{'width': imgWidth, 'height': imgHeight}">
-    <span class="time" v-if="showTime">{{transTime(dataTime / 1000)}}</span>
-    <div class="name" :style="{'width': imgWidth}">{{dataName}}</div>
-    <div class="artistname">{{dataArtistName}}</div>
+    <span class="des" v-if="showDes">{{dataDes}}</span>
+    <div class="name" :style="{'width': imgWidth}" v-if="showName">{{dataName}}</div>
+    <div class="artistname" v-if="showartistName">{{dataArtistName}}</div>
   </div>  
 </template>
 
 <script>
-import { stringLocale, tochance } from "@/tool/tools";
 export default {
   name: 'Card',
   props: {
@@ -17,7 +16,7 @@ export default {
       type: Boolean,
       default: false
     },
-    showTime: {
+    showDes: {
       type: Boolean,
       default: false
     },
@@ -25,17 +24,14 @@ export default {
       type: Boolean,
       default: false
     },
-    dataPlaycount: {
-      type: Number,
-      default: 0
-    },
+    dataPlaycount: [String, Number],
     dataImg: {
       type: String,
       default: ''
     },
-    dataTime: {
-      type: Number,
-      default: 0
+    dataDes: {
+      type: String,
+      default: ''
     },
     dataName: {
       type: String,
@@ -52,6 +48,10 @@ export default {
     imgWidth: {
       type: String,
       default: '100%'
+    },
+    showName: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -60,12 +60,7 @@ export default {
     }
   },
   methods: {
-    localeString(value) {
-      return stringLocale(value);
-    },
-    transTime(time) {
-      return tochance(time);
-    },
+    
   }
 }
 </script>
@@ -100,7 +95,7 @@ export default {
     font-size: 0.1rem;
           
   }
-  .playcount, .time {
+  .playcount, .des {
     position: absolute;
     padding: 0.02rem;
     font-size: 0.12rem;
@@ -117,7 +112,7 @@ export default {
     right: 0;
     background-color: rgba($color: #666, $alpha: 0.8);
   }
-  .time {
+  .des {
     left: 0;
     top: 1rem - 0.18rem;
   }

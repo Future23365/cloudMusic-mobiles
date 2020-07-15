@@ -24,9 +24,14 @@ export default {
 <style lang="scss" scoped>
 #back {
   // position: absolute;
+  position: sticky;
+  top: 0;
+  left: 0;
   padding: 0.05rem 0;
-  // z-index: 6;
+  z-index: 2;
   color: #fff;
+  height: 0.2rem;
+  line-height: 0.2rem;
   span {
     &::before {
       margin: 0 0.1rem;

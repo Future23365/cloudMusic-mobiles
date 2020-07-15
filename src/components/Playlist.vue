@@ -87,6 +87,8 @@ export default {
           }
           if(res.more === false) {
             this.load = '没有更多啦！'
+          }else if(res.more === true) {
+            this.load = '努力加载中...'
           }
         }, reject => {
           console.log(reject)
@@ -95,6 +97,7 @@ export default {
         getPlaylist().then(res => {
           console.log(res);
           this.allPlaylistData = res.playlists;
+          this.load = '努力加载中...'
         })
       }
     },

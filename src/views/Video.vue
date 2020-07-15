@@ -30,11 +30,11 @@
           <li v-for="(item, index) in allmvData" :key="index">
             <Card
               :showPlaycount="true"
-              :showTime="true"
+              :showDes="true"
               :showartistName="true"
-              :dataPlaycount="item.playCount"
+              :dataPlaycount="localeString(item.playCount)"
               :dataImg="item.cover"
-              :dataTime="item.duration"
+              :dataDes="transTime(item.duration / 1000)"
               :dataName="item.name"
               :dataArtistName="item.artistName"
               :imgWidth="width"
@@ -145,7 +145,7 @@ export default {
         offset: this.againRequset.offset
       }
       this.getMvData(obj);
-    }
+    },
   },
   created() {
     this.getMvData()
@@ -169,7 +169,6 @@ export default {
     position: relative;
     height: 0.2rem;
     line-height: 0.2rem;
-    z-index: 1;
     background-color: #fff;
     .choose {
       float: right;
@@ -207,6 +206,7 @@ export default {
   .wrapper-allmv {
     width: 100vw;
     height: 5.92rem;
+    overflow: hidden;
     .content-allmv {
       overflow: hidden;
       li {

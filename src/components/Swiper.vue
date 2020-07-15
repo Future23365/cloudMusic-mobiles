@@ -149,8 +149,9 @@ export default {
       if (this.pulldown) {
         this.scroll.on('touchend', (pos) => {
           // 下拉动作
+          console.log(pos.y)
           if (pos.y > 50) {
-            this.$emit('pulldown');
+            this.$emit('pulldowned');
           }
         });
       }
