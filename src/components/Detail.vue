@@ -1,7 +1,8 @@
 <template>
   <div id="detail">
-    <Back :text="'歌单'" ref="back"></Back>
-    <div class="header" ref="header">
+    <Back :text="'歌单'"></Back>
+    <div class="header">
+      <div class='img' :style="{backgroundImage: getBgc(detailData.coverImgUrl)}"></div>
       <Card
       :showPlaycount="true"
       :showDes="false"
@@ -22,25 +23,22 @@
         </div>
         <div class="des">{{detailData.description}}</div>
       </div>
-    </div>
-    <div class="menu" ref="menu">
+      <div class="menu">
         <span>评论</span>
         <span>下载</span>
         <span>多选</span>
       </div>
-    <div class="songs" @touchstart="moveStart" @touchmove="moveEvent">
-        <div class="header" ref="header2">
-          播放全部(共{{songAllData.length}}首)
-          <div class="touchmask"></div>
-          </div>
+    </div>
+    
+    <div class="playall">
+      播放全部(共{{songAllData.length}}首)
+      <div class="touchmask"></div>
+    </div>
+    <div class="songs">
         <Swiper
         class="wrapper-songs"
         :data="songAllData"
         :probeType="2"
-        :pulldown="true"
-        :listenScroll="true"
-        @scroll="setZIndex"
-        :class="isDown ? 'down' : ''"
         >
           <ul class="content-songs">
             <li v-for="(item, index) in songAllData" :key="index">
@@ -96,34 +94,8 @@ export default {
         })
       })
     },
-    moveEvent(e) {
-      
-      // console.log(e)
-      // console.log(this.$refs.aab.getBoundingClientRect().y);
-      // console.log(window.scrollY)
-      //获取滚动的最大距离
-      let offTop = this.$refs.header.clientHeight + this.$refs.menu.clientHeight + this.$refs.header2.clientHeight + this.$refs.header2.clientTop + this.$refs.back.$el.clientHeight;
-      // console.log('点击的位置', this.beforePosition)
-      // console.log('现在的位置', e.changedTouches[0].pageY)
-      if(this.beforePosition >= e.changedTouches[0].pageY) {
-        console.log('触发')
-        if(window.scrollY >= offTop) {
-          console.log('到底部');
-          this.isDown = true;
-        }
-      }
-      
-      
-    },
-    moveStart(e) {
-      this.beforePosition = e.changedTouches[0].pageY;
-    },
-    setZIndex(e) {
-      console.log('上拉', e)
-      if(e.y > -10) {
-        this.isDown = false;
-      }
-      
+    getBgc(str) {
+      return `url("${str}")`;
     }
   },
   created() {
@@ -140,8 +112,25 @@ h3 {
 #detail {
   width: 100vw;
   height: 100vh;
-  // background-color: #888;
+  // background-color: #8a8c8e;
+  #back {
+    background-color: transparent;
+  }
   .header {
+    position: relative;
+    height: 1.66rem;
+    padding-top: 0.3rem;
+    margin-top: -0.3rem;
+    .img {
+      position: absolute;
+      z-index: -1;
+      top: 0.3rem;
+      right: 0;
+      width: 100vw;
+      height: 1.66rem;
+      overflow: hidden;
+      filter: blur(0.7rem);
+    }
     #card {
       display: inline-block;
       width: 1.26rem;
@@ -185,30 +174,40 @@ h3 {
         }
       }
     }
+    .menu {
+      height: 0.4rem;
+      display: flex;
+      justify-content: space-around;
+      align-self: cetner;
+      padding-left: 0.2rem;
+      line-height: 0.4rem;
+    }
   }
-  .menu {
-    height: 0.4rem;
-    display: flex;
-    justify-content: space-around;
-    align-self: cetner;
+  
+  .playall {
+    position: sticky;
+    box-sizing: border-box;
     padding-left: 0.2rem;
-    line-height: 0.4rem;
+    height: 0.3rem;
+    top: 0.3rem;
+    left: 0;
+    width: 100%;
+    line-height: 0.3rem;
+    overflow: hidden;
+    border-top: 1px solid #999;
+    border-top-left-radius: 0.15rem;
+    border-top-right-radius: 0.15rem;
+    // background-color: #fff;
   }
   .songs {
-    .header {
-      position: relative;
-      box-sizing: border-box;
-      padding-left: 0.2rem;
-      height: 0.2rem;
-      width: 100%;
-      border-top: 1px solid #999;
-      border-radius: 0.5rem;
-    }
+    // background-color: #fff;
+    overflow: hidden;
+    
     .wrapper-songs {
       position: relative;
-      z-index: -1;
+      box-sizing: border-box;
       width: 100vw;
-      height: 100vh;
+      height: calc(100vh - 2.26rem);
       overflow: hidden;
       .content-songs {
         li {
@@ -239,9 +238,6 @@ h3 {
           }
         }
       }
-    }
-    .down {
-      z-index: 0;
     }
   }
 }

@@ -4,10 +4,11 @@
       <Swiper
         class="wrapper"
         :data="bannersData"
-        :scrollX="true"
-        :probeType="2"
+        :probeType="1"
         :autoPlay="true"
         :momentum="false"
+        :scrollY="false"
+        :scrollX="true"
         :eventPassthrough="vertical"
         :snap="swiperOptions.snap"
         @scrollToEnd="getIndex"
@@ -293,8 +294,6 @@ export default {
 
 <style lang="scss" scoped>
 #home {
-  overflow: hidden;
-  // background-color: #7bbfea;
   ul {
     padding: 0;
     margin: 0;
@@ -304,8 +303,10 @@ export default {
       list-style: none;
     }
   }
+  overflow: hidden;
+  // background-color: #7bbfea;
   min-height: 100vh;
-
+  padding-bottom: 0.4rem;
   .swiper-main {
     position: relative;
     .wrapper {
@@ -369,7 +370,7 @@ export default {
       display: flex;
       width: 0.6rem;
       height: 0.6rem;
-      background-color: #6f60aa;
+      background-color: #DD001B;
       border-radius: 50%;
       justify-content: center;
       align-items: center;

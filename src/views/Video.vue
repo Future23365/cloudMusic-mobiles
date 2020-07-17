@@ -184,15 +184,15 @@ export default {
         top: -2.16rem;
         left: 0;
         // padding-left: 0.1rem;
-        background-color: #6f599c;
-        color: #fff;
+        z-index: 1;
+        background-color: #fff;
         transition: top 0.5s;
         div {
           span {
             margin-right: 0.2rem;
           }
           .ischoose {
-            color: #9b95c9;
+            color: #DD001B;
           }
         }
         .sure {
@@ -205,7 +205,7 @@ export default {
   }
   .wrapper-allmv {
     width: 100vw;
-    height: 5.92rem;
+    height: calc(100vh - 0.55rem);
     overflow: hidden;
     .content-allmv {
       overflow: hidden;

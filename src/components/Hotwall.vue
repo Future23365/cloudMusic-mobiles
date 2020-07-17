@@ -76,7 +76,7 @@ export default {
 
 <style lang="scss" scoped>
 #hotwall {
-  overflow: hidden;
+  
   ul {
     padding: 0;
     margin: 0;
@@ -90,11 +90,15 @@ export default {
   top: 0;
   left: 0;
   z-index: 5;
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
   background-color: #666;
   line-height: 0.12rem;
   font-size: 0.12rem;
+  #back {
+    background-color: transparent;
+  }
   .wrapper-hotwall {
     // overflow: hidden;
     width: 100vw;

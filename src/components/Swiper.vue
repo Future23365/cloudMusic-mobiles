@@ -147,10 +147,10 @@ export default {
 
       // 是否派发顶部下拉事件，用于下拉刷新
       if (this.pulldown) {
-        this.scroll.on('touchend', (pos) => {
+        this.scroll.on('touchEnd', (pos) => {
           // 下拉动作
-          console.log(pos.y)
-          if (pos.y > 50) {
+          if (pos.y > 10) {
+            console.log(pos.y)
             this.$emit('pulldowned');
           }
         });
@@ -172,7 +172,9 @@ export default {
         });
       }
       if (this.autoPlay) {
-        this._play();
+        setTimeout(() => {
+          this._play();
+        }, 1000)
       }
     },
     //循环播放动画

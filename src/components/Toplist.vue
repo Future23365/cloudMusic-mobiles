@@ -66,10 +66,10 @@ export default {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: #777;
+  // background-color: #777;
   .wrapper-toplist {
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 0.3rem);
     overflow: hidden;
     .content-toplist {
       width: 100vw;
@@ -77,7 +77,7 @@ export default {
       li {
         overflow: hidden;
         margin-bottom: 0.1rem;
-        background-color: #6f60aa;
+        // background-color: #6f60aa;
         #card {
           float: left;
           margin-left: 0.1rem;
@@ -89,7 +89,7 @@ export default {
           // float: right;
           width: 100vw - 37.3333333vw;
           height: 1.3rem;
-          color: #fff;
+          // color: #fff;
           display: flex;
           flex-direction: column;
           justify-content: space-between;

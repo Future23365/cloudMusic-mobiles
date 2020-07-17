@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <div class="menu">菜单</div>
+    <div class="menu" @click="menuClick">菜单<Sidebar :class="menuShow ? 'menushow' : ''" @isRE="menuClick"></Sidebar></div>
     <div class="nav-bar" @click="chooseBar">
       <span data-index="1" :class="spanClass === 1 ? 'spanc' : ''">发现</span>
       <span data-index="2" :class="spanClass === 2 ? 'spanc' : ''">云村</span>
@@ -11,11 +11,16 @@
 </template>
 
 <script>
+import Sidebar from "@/components/Sidebar"
 export default {
   name: 'Header',
+  components: {
+    Sidebar
+  },
   data() {
     return {
       spanClass: 1,  //定义选中的span的标记
+      menuShow: false
     }
   },
   methods: {
@@ -42,6 +47,9 @@ export default {
           break;
       }
     },
+    menuClick() {
+      this.menuShow = !this.menuShow;
+    }
   },
   mounted() {
     // console.log(this.$route.path)
@@ -66,13 +74,25 @@ export default {
   display: flex;
   justify-content: space-between;
   // border: 1px solid #ccc;
+  background-color: #DD001B;
+  color: #fff;
   width: 100%;
   span {
     display: inline-block;
     // margin-right: 0.1rem;
     text-align: center;
     width: 0.4rem;
-    
+  }
+  .menu {
+    .sidebar {
+      left: -100vw;
+      background-color: rgba($color: #666, $alpha: 0);
+      transition: left 0.8s, background-color 0.8s;
+    }
+    .menushow {
+      left: 0vw;
+      background-color: rgba($color: #666, $alpha: 0.4);
+    }
   }
 }
 .spanc {

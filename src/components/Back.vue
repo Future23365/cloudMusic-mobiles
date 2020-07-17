@@ -32,6 +32,7 @@ export default {
   color: #fff;
   height: 0.2rem;
   line-height: 0.2rem;
+  background-color: #DD001B;
   span {
     &::before {
       margin: 0 0.1rem;

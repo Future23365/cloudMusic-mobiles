@@ -24,7 +24,7 @@
         ref="swiperChildPlaylistlist"
       >
         <ul class="content-playlist">
-          <li v-for="(item, index) in allPlaylistData" :key="index">
+          <li v-for="(item, index) in allPlaylistData" :key="index" @click="goListDetail(item.id)">
             <Card
               :showPlaycount="true"
               :showTime="false"
@@ -120,6 +120,14 @@ export default {
         offset: this.offset
       }
       this.getPlaylistData(obj);
+    },
+    goListDetail(id) {
+      this.$router.push({
+        path: '/Detail',
+        query: {
+          id: id
+        }
+      })
     }
   },
   mounted() {
@@ -134,11 +142,12 @@ export default {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: #999;
+  // background-color: #999;
   .wrapper-list {
-    height: 0.16rem;
+    height: 0.2rem;
     width: 100vw;
-    background-color: #666;
+    line-height: 0.2rem;
+    // background-color: #666;
     .content-list {
       width: 41rem;
       height: 100%;
@@ -148,19 +157,19 @@ export default {
         // width: 0.6rem;
         height: 0.14rem;
         margin: 0 0.15rem;
-        line-height: 0.16rem;
-        color: #fff;
+        line-height: 0.2rem;
+        // color: #fff;
 
       }
       .ischoose {
-        color: #9b95c9;
+        color: #DD001B;
       }
     }
   }
   .wrapper-playlist {
     width: 100vw;
     // height: 5rem;
-    height: 100vh;
+    height: calc(100vh - 0.5rem);
     overflow: hidden;
     .content-playlist {
       overflow: hidden;
