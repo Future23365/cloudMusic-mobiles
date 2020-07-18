@@ -1,4 +1,7 @@
 export let stringLocale =  function(value) {
+  if(value === undefined) {
+    return ''
+  }
   let str = String(value);
   if(str.length <= 4) {
     return value;

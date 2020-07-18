@@ -1,6 +1,10 @@
 <template>
   <div id="back">
-    <span class="iconfont icon-fanhui" @click="goBack"></span>{{text}}
+    <span class="iconfont icon-fanhui" @click="goBack"></span>
+    <div>
+      <span>{{text}}</span>
+      <span>{{inf}}</span>
+    </div>
   </div>
 </template>
 
@@ -9,6 +13,10 @@ export default {
   name: 'Back',
   props: {
     text: {
+      type: String,
+      default: ''
+    },
+    inf: {
       type: String,
       default: ''
     }
@@ -38,6 +46,12 @@ export default {
       margin: 0 0.1rem;
       font-size: 0.12rem;
     }
+  }
+  div {
+    height: 0.2rem;
+    width: 1rem;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

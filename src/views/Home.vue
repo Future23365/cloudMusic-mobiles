@@ -86,7 +86,7 @@
                   {{ jtem.name }}
                   </span>
                 </span>
-                <span class="iconPlay"><span></span></span>
+                <span class="iconPlay" @click="setPlaysong(item.id)"><span></span></span>
               </div>
             </div>
           </li>
@@ -271,6 +271,10 @@ export default {
           id: id
         }
       })
+    },
+    //点击播放图标
+    setPlaysong(id) {
+      this.$store.dispatch('requestSongdata', id);
     }
   },
 

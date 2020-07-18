@@ -52,6 +52,11 @@ const routes = [
     path: "/Detail",
     name: "Detail",
     component: () => import("@/components/Detail")
+  },
+  {
+    path: "/Playpage",
+    name: "Playpage",
+    component: () => import("@/components/Playpage")
   }
 ];
 

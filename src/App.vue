@@ -1,17 +1,34 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <audio :src="songUrl" ref="audio"></audio>
   </div>
 </template>
 
 <script>
-// import Enter from "@/views/Enter"
+
 
 export default {
   data() {
     return {};
   },
-  mounted() {}
+  computed: {
+    songUrl: function() {
+      return this.$store.state.songUrl;
+    },
+    isPlay: function() {
+      return this.$store.state.songPlay;
+    }
+  },
+  watch: {
+    isPlay() {
+      if(this.isPlay) {
+        this.$refs.audio.play();
+      }else {
+        this.$refs.audio.pause();
+      }
+    }
+  }
 };
 </script>
 

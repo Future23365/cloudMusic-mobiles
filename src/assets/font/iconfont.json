@@ -13,6 +13,13 @@
       "unicode_decimal": 59077
     },
     {
+      "icon_id": "2119415",
+      "name": "播放",
+      "font_class": "play_icon",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
       "icon_id": "11391497",
       "name": "电台",
       "font_class": "diantai",
@@ -39,6 +46,13 @@
       "font_class": "fanhui",
       "unicode": "e602",
       "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "15346591",
+      "name": "播放列表",
+      "font_class": "bofangliebiao",
+      "unicode": "e6a7",
+      "unicode_decimal": 59047
     }
   ]
 }
