@@ -43,15 +43,24 @@ export default {
   background-color: #DD001B;
   span {
     &::before {
+      float: left;
       margin: 0 0.1rem;
       font-size: 0.12rem;
     }
   }
   div {
     height: 0.2rem;
-    width: 1rem;
+    // width: 1rem;
+    float: left;
     display: flex;
+    // margin-left: 0.14rem;
+    flex-direction: column;
     justify-content: center;
+    span {
+      margin: 0;
+      font-size: 0.1rem;
+      line-height: 0.12rem;
+    }
   }
 }
 </style>

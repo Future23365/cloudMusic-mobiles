@@ -1,6 +1,6 @@
 <template>
   <div id="playpage">
-    <Back :text="'12'" :inf="'lllll'"></Back>
+    <Back :text="text" :inf="inf"></Back>
   </div>
 </template>
 
@@ -10,6 +10,23 @@ export default {
   name: 'Playpage',
   components: {
     Back
+  },
+  data() {
+    return {
+    }
+  },
+  computed: {
+    text: function() {
+      return this.$store.state.songName;
+    },
+    inf: function() {
+      let arr = this.$store.state.songArtist
+      let str = ''
+      for(let i of arr) {
+        str = str + i.name
+      }
+      return str
+    }
   }
 }
 </script>
