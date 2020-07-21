@@ -6,11 +6,39 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "781701",
+      "name": "上一曲1-01",
+      "font_class": "shangyiqu101",
+      "unicode": "e6e1",
+      "unicode_decimal": 59105
+    },
+    {
+      "icon_id": "781774",
+      "name": "下一曲1-01",
+      "font_class": "xiayiqu101",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
       "icon_id": "1149403",
       "name": "排行榜",
       "font_class": "paixingbang",
       "unicode": "e6c5",
       "unicode_decimal": 59077
+    },
+    {
+      "icon_id": "1166147",
+      "name": "下载",
+      "font_class": "iconfontzhizuobiaozhun023146",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "1488893",
+      "name": "单曲循环",
+      "font_class": "danquxunhuan",
+      "unicode": "e607",
+      "unicode_decimal": 58887
     },
     {
       "icon_id": "2119415",
@@ -20,11 +48,53 @@
       "unicode_decimal": 58983
     },
     {
+      "icon_id": "3216218",
+      "name": "随机",
+      "font_class": "icon--",
+      "unicode": "e77d",
+      "unicode_decimal": 59261
+    },
+    {
+      "icon_id": "7383189",
+      "name": "评论",
+      "font_class": "jianyi",
+      "unicode": "e6d3",
+      "unicode_decimal": 59091
+    },
+    {
+      "icon_id": "7532887",
+      "name": "暂停",
+      "font_class": "zanting",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "8191199",
+      "name": "暂停",
+      "font_class": "zanting1",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
       "icon_id": "11391497",
       "name": "电台",
       "font_class": "diantai",
       "unicode": "e636",
       "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "12036464",
+      "name": "循环06",
+      "font_class": "xunhuan",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "12754056",
+      "name": "暂停",
+      "font_class": "zanting_huaban",
+      "unicode": "e639",
+      "unicode_decimal": 58937
     },
     {
       "icon_id": "12856707",

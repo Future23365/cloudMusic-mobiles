@@ -23,6 +23,12 @@ export default new Vuex.Store({
     },
     setPlay(state) {
       state.songPlay = !state.songPlay;
+    },
+    setPlayTrue(state) {
+      state.songPlay = false;
+      setTimeout(() => {
+        state.songPlay = true;
+      }, 10)
     }
   },
   actions: {
@@ -34,6 +40,7 @@ export default new Vuex.Store({
       getsongUrl(id).then(res => {
         console.log(res);
         context.commit('setUrl', res);
+        context.commit('setPlayTrue');
       })
     }
   },

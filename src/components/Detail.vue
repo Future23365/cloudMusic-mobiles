@@ -41,7 +41,7 @@
         :probeType="2"
         >
           <ul class="content-songs">
-            <li v-for="(item, index) in songAllData" :key="index">
+            <li v-for="(item, index) in songAllData" :key="index" @click="setPlaysong(item.id)">
               <span>{{index + 1}}</span>
               <span>
                 <div>{{item.name}}</div>
@@ -52,6 +52,7 @@
           </ul>
       </Swiper>
     </div>
+    <Player></Player>
   </div>  
 </template>
 
@@ -61,12 +62,14 @@ import Card from "@/components/Card";
 import { stringLocale } from "@/tool/tools";
 import { getUserPlaylistDetail, getSongDetailall } from "@/request/getdata";
 import Swiper from "@/components/Swiper";
+import Player from "@/components/Player";
 export default {
   name: 'Detail',
   components: {
     Back,
     Card,
-    Swiper
+    Swiper,
+    Player
   },
   data() {
     return {
@@ -96,6 +99,9 @@ export default {
     },
     getBgc(str) {
       return `url("${str}")`;
+    },
+    setPlaysong(id) {
+      this.$store.dispatch('requestSongdata', id);
     }
   },
   created() {
@@ -208,8 +214,10 @@ h3 {
       box-sizing: border-box;
       width: 100vw;
       height: calc(100vh - 2.26rem);
+      // margin-bottom: 0.4rem;
       overflow: hidden;
       .content-songs {
+        padding-bottom: 0.4rem;
         li {
           height: 0.4rem;
           margin-bottom: 0.2rem;
