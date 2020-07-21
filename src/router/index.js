@@ -57,6 +57,11 @@ const routes = [
     path: "/Playpage",
     name: "Playpage",
     component: () => import("@/components/Playpage")
+  },
+  {
+    path: "/Search",
+    name: "Search",
+    component: () => import("@/components/Search")
   }
 ];
 

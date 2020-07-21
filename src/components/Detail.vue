@@ -83,6 +83,7 @@ export default {
     localeString(value) {
       return stringLocale(value)
     },
+    //获取歌单详情
     getDetailData(id) {
       getUserPlaylistDetail(id).then(res => {
         console.log(res)

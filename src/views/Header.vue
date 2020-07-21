@@ -6,7 +6,7 @@
       <span data-index="2" :class="spanClass === 2 ? 'spanc' : ''">云村</span>
       <span data-index="3" :class="spanClass === 3 ? 'spanc' : ''">视频</span>
     </div>
-    <div class="search">搜索</div>
+    <div class="search" @click="goSearch">搜索</div>
   </div>
 </template>
 
@@ -47,8 +47,13 @@ export default {
           break;
       }
     },
+    //菜单按钮
     menuClick() {
       this.menuShow = !this.menuShow;
+    },
+    //搜索按钮
+    goSearch() {
+      this.$router.push('/Search');
     }
   },
   mounted() {

@@ -30,9 +30,11 @@ export default {
     }
   },
   computed: {
+    //标题文字为歌曲名字
     text: function() {
       return this.$store.state.songName;
     },
+    //副文字为歌手
     inf: function() {
       let arr = this.$store.state.songArtist;
       let str = '';
@@ -41,17 +43,21 @@ export default {
       }
       return str;
     },
+    //读取专辑信息
     al: function() {
       return this.$store.state.songAl;
     },
+    //读取是否播放
     songPlay: function() {
       return this.$store.state.songPlay;
     }
   },
   methods: {
+    //歌曲播放地址字符串
     getBgcimg(url) {
       return `url(${url})`
     },
+    //设置播放
     play() {
       this.$store.commit('setPlay');
     },

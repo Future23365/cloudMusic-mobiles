@@ -65,6 +65,7 @@ export default {
     }
   },
   methods: {
+    //获取歌单分类
     getList() {
       getCatlist().then(res => {
         console.log(res);
@@ -78,6 +79,7 @@ export default {
         this.listData = res.sub;
       })
     },
+    //获取歌单数据
     getPlaylistData(obj) {
       if(obj) {
         getPlaylist(obj.cat, obj.limit, obj.offset).then(res => {
@@ -101,6 +103,7 @@ export default {
         })
       }
     },
+    //下拉再次请求
     requestAgain() {
       this.offset += 30;
       let obj = {
@@ -110,6 +113,7 @@ export default {
       }
       this.getPlaylistData(obj);
     },
+    //第一次请求
     reStart() {
       console.log('1')
       this.offset = 0;
@@ -121,6 +125,7 @@ export default {
       }
       this.getPlaylistData(obj);
     },
+    //前往歌单详情页
     goListDetail(id) {
       this.$router.push({
         path: '/Detail',

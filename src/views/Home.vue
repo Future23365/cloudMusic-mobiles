@@ -7,7 +7,6 @@
         :probeType="1"
         :autoPlay="true"
         :momentum="false"
-        :scrollY="false"
         :scrollX="true"
         :eventPassthrough="vertical"
         :snap="swiperOptions.snap"
