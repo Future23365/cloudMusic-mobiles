@@ -373,7 +373,7 @@ export default {
       display: flex;
       width: 0.6rem;
       height: 0.6rem;
-      background-color: #DD001B;
+      background-color: #fc3a3a;
       border-radius: 50%;
       justify-content: center;
       align-items: center;

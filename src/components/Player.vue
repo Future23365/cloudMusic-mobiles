@@ -54,7 +54,7 @@ export default {
   left: 0;
   justify-content: space-between;
   align-items: center;
-  background-color: #DD001B;
+  background-color: #fc3a3a;
   .inf {
     width: 80%;
     img {

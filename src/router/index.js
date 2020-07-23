@@ -61,7 +61,14 @@ const routes = [
   {
     path: "/Search",
     name: "Search",
-    component: () => import("@/components/Search")
+    component: () => import("@/components/Search"),
+    children: [
+      {
+        path: "SearchResult",
+        name: "SearchResult",
+        component: () => import("@/components/SearchResult")
+      }
+    ]
   }
 ];
 

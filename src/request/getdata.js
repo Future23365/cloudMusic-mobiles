@@ -46,10 +46,17 @@ export const getsongComment = (id, limit, target, offset = 0) => {
 };
 
 //获取搜索建议
-export const getsearchSuggest = keywords => {
-  return server({
-    url: `/search/suggest?keywords=${keywords}`
-  });
+export const getsearchSuggest = (keywords, type = '') => {
+  if(type === '') {
+    return server({
+      url: `/search/suggest?keywords=${keywords}`
+    });
+  }else {
+    return server({
+      url: `/search/suggest?keywords=${keywords}&type=${type}`
+    })
+  }
+  
 };
 //获取搜索结果
 export const getsearchResult = (keywords, limit = 30, offset = 0, type = 1) => {
@@ -233,6 +240,14 @@ export const getSongDetailall = (arr) => {
     url: `/song/detail?ids=${arr.join(',')}`
   })
 }
+
+//获取热搜列表
+export const getSearchDetail = () => {
+  return server({
+    url: `/search/hot/detail`
+  })
+}
+
 
 //并发请求
 export const serverAll = arr => {

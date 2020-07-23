@@ -40,7 +40,7 @@ export default {
   color: #fff;
   height: 0.2rem;
   line-height: 0.2rem;
-  background-color: #DD001B;
+  background-color: #fc3a3a;
   span {
     &::before {
       float: left;

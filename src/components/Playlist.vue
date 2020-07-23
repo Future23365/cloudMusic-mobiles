@@ -167,7 +167,7 @@ export default {
 
       }
       .ischoose {
-        color: #DD001B;
+        color: #fc3a3a;
       }
     }
   }

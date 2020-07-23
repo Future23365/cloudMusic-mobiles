@@ -35,13 +35,13 @@ export default {
           break;
         case '2':
           this.spanClass = 2;
-          if(this.$route.path !== '/Yuncun') {
+          if(this.$route.path !== '/Home/Yuncun') {
             this.$router.push('/Home/Yuncun');
           }
           break;
         case '3':
           this.spanClass = 3;
-          if(this.$route.path !== '/Video') {
+          if(this.$route.path !== '/Home/Video') {
             this.$router.push('/Home/Video');
           }
           break;
@@ -79,7 +79,7 @@ export default {
   display: flex;
   justify-content: space-between;
   // border: 1px solid #ccc;
-  background-color: #DD001B;
+  background-color: #fc3a3a;
   color: #fff;
   width: 100%;
   span {

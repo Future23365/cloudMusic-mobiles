@@ -48,5 +48,6 @@ ul {
   -moz-osx-font-smoothing: grayscale;
   min-width: 320px;
   min-height: 640px;
+  // overflow: hidden;
 }
 </style>
