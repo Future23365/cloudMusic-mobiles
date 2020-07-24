@@ -97,6 +97,11 @@ export default {
     broadwise: {
       type: Boolean,
       default: false
+    },
+    //滚动结束
+    pullingUp: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -171,6 +176,13 @@ export default {
           that.$emit('scrollToEnd', e.x/-pw - 1);  //获取当前移动的位置
         });
       }
+
+      if(this.pullingUp) {
+        this.scroll.on('pullingUp', () => {
+          this.$emit('pullingUp');
+        });
+      }
+
       if (this.autoPlay) {
         setTimeout(() => {
           this._play();

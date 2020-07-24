@@ -69,8 +69,7 @@ export default {
       })
     },
     //获取搜索建议
-    setSearch() {
-      // console.log(this.$refs.input.value);
+    setSearch(e) {
       this.searchText = this.$refs.input.value;
       clearTimeout(this.throttleFlag);
       this.throttleFlag = setTimeout(() => {
@@ -79,7 +78,22 @@ export default {
           getsearchSuggest(this.$refs.input.value, 'mobile').then(res => {
             console.log(res);
             this.searchSuggsetData = res.result.allMatch;
-            console.log(this.searchSuggsetData)
+            console.log(this.searchSuggsetData);
+            //判断回车跳转
+            if(e.keyCode === 13) {
+              if(this.$route.query.value !== this.searchText) {
+                // this.searchText = this.$refs.input.value;
+                // console.log(this.searchText);
+                this.$router.push({
+                  path: '/Search/SearchResult',
+                  query: {
+                    value: this.searchText
+                  }
+                })
+              }
+              this.suggsetShow = false;
+              this.showResult = true;
+            }
           })
         }else {
           this.suggsetShow = false;
