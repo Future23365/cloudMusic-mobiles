@@ -25,8 +25,8 @@ export default {
   overflow: hidden;
   // background-color: #666;
   display: flex;
-  justify-content: start;
-  // margin-bottom: 0.1rem;
+  justify-content: flex-start;
+  margin-bottom: 0.1rem;
   >span {
     float: left;
     height: 0.5rem;

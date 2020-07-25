@@ -5,8 +5,14 @@
     <div class="main">
       <div class="img-lyric">
         <img :src="al.picUrl" alt="" :class="songPlay ? '' : 'paused'">
+        <div class="menu">
+          <span class="iconfont icon-iconfontzhizuobiaozhun023146"></span>
+          <span class="iconfont icon-jianyi" @click="goSongComment"></span>
+          <span>|</span>
+        </div>
       </div>
       <div class="detail-play">
+        <div class="progress">111111111111111111111111111111111111111111111111111111111111111</div>
         <span class="iconfont icon-xunhuan"></span>
         <span class="iconfont icon-shangyiqu101"></span>
         <span class="iconfont " :class="songPlay ? 'icon-zanting' : 'icon-play_icon'" @click="play"></span>
@@ -19,7 +25,7 @@
 </template>
 
 <script>
-import Back from "@/components/Back"
+import Back from "@/components/Back";
 export default {
   name: 'Playpage',
   components: {
@@ -61,6 +67,11 @@ export default {
     play() {
       this.$store.commit('setPlay');
     },
+    goSongComment() {
+      this.$router.push({
+        path: '/Comment'
+      })
+    }
   }
 }
 </script>
@@ -99,6 +110,21 @@ export default {
         border-radius: 50%;
         animation: rotateimg 15s linear infinite;
       }
+      .menu {
+        position: absolute;
+        width: 100vw;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.2rem;
+        span {
+          margin: 0 0.1rem;
+          &::before {
+            font-size: 0.2rem;
+          }
+        }
+      }
       .paused {
         animation-play-state: paused;
       }
@@ -123,6 +149,13 @@ export default {
         &::before {
           font-size: 0.3rem;
         }
+      }
+      .progress {
+        position: absolute;
+        bottom: 10%;
+        left: 0;
+        width: 100vw;
+
       }
     }
   }

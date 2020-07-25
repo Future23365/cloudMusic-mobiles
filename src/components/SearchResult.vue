@@ -21,16 +21,20 @@
     <div class="no"></div>
     <Swiper
     class="result-songs"
-    :data="songsData"
-    v-show="resultType === '单曲'"
+    :data="updateData"
     :scrollY="true"
     :pullup="true"
     @scrollToEnded="pullupRequest"
     >
       <div class="content">
-        <List v-for="(item, index) in songsData" :key="index">
+        <List v-for="(item, index) in songsData" :key="index" v-show="resultType === '单曲'" @click.native="setPlaysong(item.id)">
           <template v-slot:inf-name>{{item.name}}</template>
-          <template v-slot:inf-au><span v-for="(jtem, jndex) in item.artists" :key="jndex">{{jtem.name}}</span></template>
+          <template v-slot:inf-au><span v-for="(jtem, jndex) in item.artists" :key="jndex + 's'">{{jtem.name}}</span></template>
+        </List>
+        <List v-for="(item, index) in videosData" :key="index" v-show="resultType === '视频'" class="video">
+          <template v-slot:img><img :src="item.coverUrl" alt=""></template>
+          <template v-slot:inf-name>{{item.title}}</template>
+          <template v-slot:inf-au><span v-for="(jtem, jndex) in item.creator" :key="jndex + 'z'">{{jtem.userName}}</span></template>
         </List>
         <div style="text-align: center">{{loading}}</div>
       </div>
@@ -55,15 +59,21 @@ export default {
     return {
       resultType: '综合',
       songsData: [],
+      videosData: [],
       loading: '努力加载中...',
       offset: 0,
-      requestFlat: true
+      requestFlat: true,
+      updateData: []
     }
   },
   methods: {
     //tag栏选择函数
     chooseNav(e) {
+      if(e.target.innerText.length > 2) {
+        return;
+      }
       this.songsData = [];
+      this.videosData = [];
       this.offset = 0;
       this.resultType = e.target.innerText;
       console.log(e.target.innerText);
@@ -75,7 +85,10 @@ export default {
         case '综合':
           break;
         case '单曲':
-          this.requestData(this.serachWord, 20, this.offset, 1)
+          this.requestData(this.serachWord, 20, this.offset, 1);
+          break;
+        case '视频':
+          this.requestData(this.serachWord, 20, this.offset, 1014);
           break;
       }
     },
@@ -85,10 +98,13 @@ export default {
         console.log(res);
         switch(this.resultType) {
           case '综合':
+            break;
+          case '单曲':
+            this.processSongs(res);
           break;
-        case '单曲':
-          this.processSongs(res);
-          break;
+          case '视频':
+            this.processVideo(res);
+            break;
         }
         
       })
@@ -104,15 +120,31 @@ export default {
     //单曲数据处理
     processSongs(res) {
       for(let item of res.result.songs) {
-          this.songsData.push(item);
-        }
-        // this.songsData = res.result.songs;
-        if(res.result.hasMore === true) {
-          this.offset += 20;
-        }else {
-          this.requestFlat = false;
-          this.loading = '没有更多啦！'
-        }
+        this.songsData.push(item);
+      }
+      // this.songsData = res.result.songs;
+      if(res.result.hasMore === true) {
+        this.offset += 20;
+      }else {
+        this.requestFlat = false;
+        this.loading = '没有更多啦！'
+      }
+    },
+    processVideo(res) {
+      for(let item of res.result.videos) {
+        this.videosData.push(item);
+      }
+      // this.songsData = res.result.songs;
+      if(res.result.hasMore === true) {
+        this.offset += 20;
+      }else {
+        this.requestFlat = false;
+        this.loading = '没有更多啦！'
+      }
+    },
+    setPlaysong(id) {
+      console.log('1')
+      this.$store.dispatch('requestSongdata', id);
     }
   },
   computed: {
@@ -123,6 +155,16 @@ export default {
   watch: {
     serachWord: function() {
       this.setRequest(this.resultType);
+    },
+    resultType: function() {
+      switch(this.resultType) {
+        case '单曲':
+          this.updateData = this.songsData;
+          break;
+        case '视频':
+          this.updateData = this.videosData;
+          break;
+      }
     }
   }
 }
@@ -161,6 +203,16 @@ export default {
   }
   .result-songs {
     height: calc(100vh - 1rem);
+    .content {
+      .video {
+        img {
+          width: 0.8rem;
+          height: 0.5rem;
+          border-radius: 0.05rem;
+          margin-right: 0.1rem;
+        }
+      }
+    }
   }
 }
 </style>

@@ -69,6 +69,11 @@ const routes = [
         component: () => import("@/components/SearchResult")
       }
     ]
+  },
+  {
+    path: "/Comment",
+    name: "Comment",
+    component: () => import("@/components/Comment")
   }
 ];
 
