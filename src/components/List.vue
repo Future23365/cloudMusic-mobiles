@@ -31,8 +31,11 @@ export default {
     float: left;
     height: 0.5rem;
   }
+  .img {
+    margin-right: 0.1rem;
+  }
   .inf {
-    max-width: 80%;
+    max-width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;

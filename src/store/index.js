@@ -12,11 +12,12 @@ export default new Vuex.Store({
     songAl: {},
     songPlay: false,
     songUrl: '',
-
+    realTime: 0,
+    allTime: 0,
   },
   mutations: {
     setData(state,res) {
-      ({id: state.songId, name: state.songName, ar: state.songArtist, al: state.songAl} = res.songs[0])
+      ({id: state.songId, name: state.songName, ar: state.songArtist, al: state.songAl} = res.songs[0]);
     },
     setUrl(state, res) {
       state.songUrl = res.data[0].url;
@@ -29,6 +30,12 @@ export default new Vuex.Store({
       setTimeout(() => {
         state.songPlay = true;
       }, 10)
+    },
+    setAlltime(state, time) {
+      state.allTime = time;
+    },
+    setrealTime(state, time) {
+      state.realTime = time;
     }
   },
   actions: {

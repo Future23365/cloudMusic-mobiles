@@ -39,7 +39,7 @@ export const getsongLyric = id => {
   });
 };
 //获取评论
-export const getsongComment = (id, limit, target, offset = 0) => {
+export const getsongComment = (target, id, limit = 20, offset = 0) => {
   return server({
     url: `/comment/${target}?id=${id}&limit=${limit}&offset=${offset}`
   });

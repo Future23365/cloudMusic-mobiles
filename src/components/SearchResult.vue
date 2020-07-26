@@ -27,14 +27,28 @@
     @scrollToEnded="pullupRequest"
     >
       <div class="content">
-        <List v-for="(item, index) in songsData" :key="index" v-show="resultType === '单曲'" @click.native="setPlaysong(item.id)">
+        <List v-for="(item, index) in songsData" :key="index + 'ss'" v-show="resultType === '单曲'" @click.native="setPlaysong(item.id)">
           <template v-slot:inf-name>{{item.name}}</template>
           <template v-slot:inf-au><span v-for="(jtem, jndex) in item.artists" :key="jndex + 's'">{{jtem.name}}</span></template>
         </List>
-        <List v-for="(item, index) in videosData" :key="index" v-show="resultType === '视频'" class="video">
+        <List v-for="(item, index) in videosData" :key="index + 'vv'" v-show="resultType === '视频'" class="video">
           <template v-slot:img><img :src="item.coverUrl" alt=""></template>
           <template v-slot:inf-name>{{item.title}}</template>
-          <template v-slot:inf-au><span v-for="(jtem, jndex) in item.creator" :key="jndex + 'z'">{{jtem.userName}}</span></template>
+          <template v-slot:inf-au><span v-for="(jtem, jndex) in item.creator" :key="jndex + 'v'">{{jtem.userName}}</span></template>
+        </List>
+        <List v-for="(item, index) in singleData" :key="index + 'ar'" v-show="resultType === '歌手'" class="single">
+          <template v-slot:img><img :src="item.picUrl" alt=""></template>
+          <template v-slot:inf-name>{{item.name}}</template>
+        </List>
+        <List v-for="(item, index) in albumData" :key="index + 'al'" v-show="resultType === '专辑'" class="album">
+          <template v-slot:img><img :src="item.picUrl" alt=""></template>
+          <template v-slot:inf-name>{{item.name}}</template>
+          <template v-slot:inf-au><span v-for="(jtem, jndex) in item.artists" :key="jndex + 'a'">{{jtem.name}}</span></template>
+        </List>
+        <List v-for="(item, index) in userData" :key="index + 'us'" v-show="resultType === '用户'" class="user">
+          <template v-slot:img><img :src="item.avatarUrl" alt=""></template>
+          <template v-slot:inf-name>{{item.nickname}}</template>
+          <template v-slot:inf-au>{{item.signature}}</template>
         </List>
         <div style="text-align: center">{{loading}}</div>
       </div>
@@ -60,6 +74,9 @@ export default {
       resultType: '综合',
       songsData: [],
       videosData: [],
+      singleData: [],
+      albumData: [],
+      userData: [],
       loading: '努力加载中...',
       offset: 0,
       requestFlat: true,
@@ -74,6 +91,9 @@ export default {
       }
       this.songsData = [];
       this.videosData = [];
+      this.singleData = [];
+      this.albumData = [];
+      this.userData = [];
       this.offset = 0;
       this.resultType = e.target.innerText;
       console.log(e.target.innerText);
@@ -90,6 +110,15 @@ export default {
         case '视频':
           this.requestData(this.serachWord, 20, this.offset, 1014);
           break;
+        case '歌手':
+          this.requestData(this.serachWord, 20, this.offset, 100);
+          break;
+        case '专辑':
+          this.requestData(this.serachWord, 20, this.offset, 10);
+          break;
+        case '用户':
+          this.requestData(this.serachWord, 20, this.offset, 1002);
+          break;
       }
     },
     //请求数据
@@ -104,6 +133,15 @@ export default {
           break;
           case '视频':
             this.processVideo(res);
+            break;
+          case '歌手':
+            this.processSinger(res);
+            break;
+          case '专辑':
+            this.processAlbum(res);
+            break;
+          case '用户':
+            this.processUsers(res);
             break;
         }
         
@@ -142,10 +180,47 @@ export default {
         this.loading = '没有更多啦！'
       }
     },
+    processSinger(res) {
+      for(let item of res.result.artists) {
+        this.singleData.push(item);
+      }
+      // this.songsData = res.result.songs;
+      if(res.result.hasMore === true) {
+        this.offset += 20;
+      }else {
+        this.requestFlat = false;
+        this.loading = '没有更多啦！'
+      }
+    },
+    processAlbum(res) {
+      for(let item of res.result.albums) {
+        this.albumData.push(item);
+      }
+      // this.songsData = res.result.songs;
+      if(res.result.hasMore === true || this.offset <= 580) {
+        this.offset += 20;
+      }else {
+        this.requestFlat = false;
+        this.loading = '没有更多啦！'
+      }
+    },
+    processUsers(res) {
+      for(let item of res.result.userprofiles) {
+        this.userData.push(item);
+      }
+      // this.songsData = res.result.songs;
+      if(res.result.hasMore === true) {
+        this.offset += 20;
+      }else {
+        this.requestFlat = false;
+        this.loading = '没有更多啦！'
+      }
+    },
     setPlaysong(id) {
       console.log('1')
       this.$store.dispatch('requestSongdata', id);
-    }
+    },
+
   },
   computed: {
     serachWord() {
@@ -163,6 +238,15 @@ export default {
           break;
         case '视频':
           this.updateData = this.videosData;
+          break;
+        case '歌手':
+          this.updateData = this.singleData;
+          break;
+        case '专辑':
+          this.updateData = this.albumData;
+          break;
+        case '用户':
+          this.updateData = this.userData;
           break;
       }
     }
@@ -209,7 +293,26 @@ export default {
           width: 0.8rem;
           height: 0.5rem;
           border-radius: 0.05rem;
-          margin-right: 0.1rem;
+        }
+      }
+      .single {
+        img {
+          width: 0.5rem;
+          height: 0.5rem;
+          border-radius: 50%;
+        }
+      }
+      .album {
+        img {
+          width: 0.5rem;
+          height: 0.5rem;
+        }
+      }
+      .user {
+        img {
+          width: 0.5rem;
+          height: 0.5rem;
+          border-radius: 50%;
         }
       }
     }

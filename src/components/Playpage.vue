@@ -12,7 +12,13 @@
         </div>
       </div>
       <div class="detail-play">
-        <div class="progress">111111111111111111111111111111111111111111111111111111111111111</div>
+        <div class="progress">
+          <span class="now">{{realTime}}</span>
+          <div class="bar">
+            <div class="real" :style="{width: realWidth}"></div>
+          </div>
+          <span class="total">{{allTime}}</span>
+        </div>
         <span class="iconfont icon-xunhuan"></span>
         <span class="iconfont icon-shangyiqu101"></span>
         <span class="iconfont " :class="songPlay ? 'icon-zanting' : 'icon-play_icon'" @click="play"></span>
@@ -33,6 +39,7 @@ export default {
   },
   data() {
     return {
+      
     }
   },
   computed: {
@@ -56,6 +63,15 @@ export default {
     //读取是否播放
     songPlay: function() {
       return this.$store.state.songPlay;
+    },
+    allTime: function() {
+      return Math.ceil(this.$store.state.allTime);
+    },
+    realTime: function() {
+      return Math.ceil(this.$store.state.realTime);
+    },
+    realWidth: function() {
+      return `${((this.realTime / this.allTime) * 100).toFixed(2)}%`
     }
   },
   methods: {
@@ -69,10 +85,19 @@ export default {
     },
     goSongComment() {
       this.$router.push({
-        path: '/Comment'
+        path: '/Comment',
+        query: {
+          target: 'music',
+          id: this.$store.state.songId
+        }
       })
     }
-  }
+  },
+  // watch: {
+  //   realTime: function() {
+     
+  //   }
+  // }
 }
 </script>
 
@@ -151,11 +176,41 @@ export default {
         }
       }
       .progress {
+        box-sizing: border-box;
         position: absolute;
         bottom: 10%;
         left: 0;
         width: 100vw;
-
+        height: 0.14rem;
+        padding: 0 5%;
+        display: flex;
+        justify-content: space-between;
+        align-self: center;
+        align-items: center;
+        line-height: 0.14rem;
+        font-size: 0.12rem;
+        .bar {
+          width: 80%;
+          height: 0.02rem;
+          background-color: rgba($color: #666, $alpha: 0.5);
+          .real {
+            position: relative;
+            width: 0%;
+            height: 0.02rem;
+            background-color: #111;
+            &::after {
+              content: '';
+              position: absolute;
+              top: 50%;
+              right: 0;
+              width: 0.06rem;
+              height: 0.06rem;
+              background-color: #fff;
+              margin-top: -0.03rem;
+              border-radius: 50%;
+            }
+          }
+        }
       }
     }
   }

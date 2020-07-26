@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <audio :src="songUrl" ref="audio"></audio>
+    <audio :src="songUrl" ref="audio" @durationchange="setAllTime" @timeupdate="updateTime"></audio>
   </div>
 </template>
 
@@ -11,6 +11,17 @@
 export default {
   data() {
     return {};
+  },
+  methods: {
+    setAllTime() {
+      this.$store.commit("setAlltime", this.$refs.audio.duration);
+      console.log('设置事件');
+      console.log(this.$store.state.allTime)
+    },
+    updateTime() {
+      // console.log(this.$refs.audio.currentTime);
+      this.$store.commit("setrealTime", this.$refs.audio.currentTime)
+    }
   },
   computed: {
     songUrl: function() {
