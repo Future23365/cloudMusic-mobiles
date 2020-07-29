@@ -31,7 +31,7 @@
           <template v-slot:inf-name>{{item.name}}</template>
           <template v-slot:inf-au><span v-for="(jtem, jndex) in item.artists" :key="jndex + 's'">{{jtem.name}}</span></template>
         </List>
-        <List v-for="(item, index) in videosData" :key="index + 'vv'" v-show="resultType === '视频'" class="video">
+        <List v-for="(item, index) in videosData" :key="index + 'vv'" v-show="resultType === '视频'" class="video" @click.native="goPlayvideo(item.vid)">
           <template v-slot:img><img :src="item.coverUrl" alt=""></template>
           <template v-slot:inf-name>{{item.title}}</template>
           <template v-slot:inf-au><span v-for="(jtem, jndex) in item.creator" :key="jndex + 'v'">{{jtem.userName}}</span></template>
@@ -220,7 +220,27 @@ export default {
       console.log('1')
       this.$store.dispatch('requestSongdata', id);
     },
-
+    goPlayvideo(id) {
+      console.log(id)
+      if(Object.is(Number(id), NaN)) {
+        this.$router.push({
+          path: '/VideoPlay',
+          query: {
+            id: id,
+            type: 'video'
+          }
+        })
+      }else {
+        this.$router.push({
+          path: '/VideoPlay',
+          query: {
+            id: id,
+            type: 'mv'
+          }
+        })
+      }
+      
+    }
   },
   computed: {
     serachWord() {
@@ -261,7 +281,7 @@ export default {
     position: fixed;
     top: 0.4rem;
     left: 0;
-    z-index: 1;
+    z-index: 0;
     width: 100vw;
     height: 0.2rem;
     background-color: #fc3a3a;
@@ -286,6 +306,8 @@ export default {
     height: 0.2rem;
   }
   .result-songs {
+    // margin-top: 0.4rem;
+    overflow: hidden;
     height: calc(100vh - 1rem);
     .content {
       .video {

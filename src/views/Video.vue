@@ -27,7 +27,7 @@
         ref="swiperChildAllmv"
       >
         <ul class="content-allmv">
-          <li v-for="(item, index) in allmvData" :key="index">
+          <li v-for="(item, index) in allmvData" :key="index" @click="goPlayvideo(item.id)">
             <Card
               :showPlaycount="true"
               :showDes="true"
@@ -146,6 +146,15 @@ export default {
       }
       this.getMvData(obj);
     },
+    goPlayvideo(id) {
+      this.$router.push({
+        path: '/VideoPlay',
+        query: {
+          id: id,
+          type: 'mv'
+        }
+      })
+    }
   },
   created() {
     this.getMvData()
