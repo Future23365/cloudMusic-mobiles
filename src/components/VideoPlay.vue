@@ -13,7 +13,7 @@
         <div class="desc">{{playData.desc || playData.description}}</div>
       </div>
       <div class="author" v-for="(item, index) in playData.artists" :key="index">
-        {{item.name}}
+        {{item.name || item.nickname}}
       </div>
     </div>
   </div>
@@ -47,6 +47,7 @@ export default {
           obj.videoGroup = res.data.videoGroup;
           obj.publishTime = res.data.publishTime;
           obj.artists = res.data.artists;
+          obj.desc = res.data.desc;
           this.playData = obj;
         })
         getMvurl(this.$route.query.id).then(res => {
@@ -56,8 +57,16 @@ export default {
       }else if(this.$route.query.type === 'video') {
         getVideodata(this.$route.query.id).then(res => {
           console.log(res);
-          this.playData = res.data;
-          this.text = this.playData.title;
+          this.text = res.data.title;
+          let obj = {};
+          obj.name = res.data.title;
+          obj.playCount = res.data.playTime;
+          obj.videoGroup = res.data.videoGroup;
+          obj.publishTime = res.data.publishTime;
+          obj.artists = [];
+          obj.artists.push(res.data.creator);
+          obj.desc = res.data.description;
+          this.playData = obj;
         })
         getVideourl(this.$route.query.id).then(res => {
           console.log(res);

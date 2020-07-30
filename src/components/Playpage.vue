@@ -3,7 +3,7 @@
     <Back :text="text" :inf="inf"></Back>
     <div class="img" :style="{backgroundImage: getBgcimg(al.picUrl)}"></div>
     <div class="main">
-      <div class="img-lyric">
+      <div class="img-lyric" v-show="!showLyric" @click="toLyric">
         <img :src="al.picUrl" alt="" :class="songPlay ? '' : 'paused'">
         <div class="menu">
           <span class="iconfont icon-iconfontzhizuobiaozhun023146"></span>
@@ -11,6 +11,7 @@
           <span>|</span>
         </div>
       </div>
+      <Lyric v-show="showLyric" @click.native="toLyric" :lyric="lyric"></Lyric>
       <div class="detail-play">
         <div class="progress">
           <span class="now">{{realTime}}</span>
@@ -32,14 +33,18 @@
 
 <script>
 import Back from "@/components/Back";
+import Lyric from "@/components/Lyric";
+import { getsongLyric } from "@/request/getdata"
 export default {
   name: 'Playpage',
   components: {
-    Back
+    Back,
+    Lyric
   },
   data() {
     return {
-      
+      showLyric: false,
+      lyric: {}
     }
   },
   computed: {
@@ -72,6 +77,9 @@ export default {
     },
     realWidth: function() {
       return `${((this.realTime / this.allTime) * 100).toFixed(2)}%`
+    },
+    songId: function() {
+      return this.$store.state.songId;
     }
   },
   methods: {
@@ -91,13 +99,36 @@ export default {
           id: this.$store.state.songId
         }
       })
+    },
+    toLyric() {
+      this.showLyric = !this.showLyric;
+    },
+    getLyricData() {
+      getsongLyric(this.$store.state.songId).then(res => {
+        console.log(res);
+        if(!res.nolyric) {
+          let obj = {};
+          obj.lyric = res.lrc.lyric;
+          obj.tlyric = res.tlyric.lyric;
+          this.lyric = obj;
+        }else {
+          let obj = {};
+          obj.lyric = '';
+          obj.tlyric = '';
+          this.lyric = obj;
+        }
+        
+      })
     }
   },
-  // watch: {
-  //   realTime: function() {
-     
-  //   }
-  // }
+  mounted() {
+    this.getLyricData();
+  },
+  watch: {
+    songId: function() {
+      this.getLyricData();
+    }
+  }
 }
 </script>
 

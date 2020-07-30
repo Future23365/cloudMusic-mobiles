@@ -42,11 +42,11 @@ export default {
     }
   },
   watch: {
-    value: function() {
-      if(this.value.trim() !== '') {
-        this.getResultData(this.value);
-      }
-    }
+    // value: function() {
+    //   if(this.value.trim() !== '') {
+    //     this.getResultData(this.value);
+    //   }
+    // }
   }
 }
 </script>

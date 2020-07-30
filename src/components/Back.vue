@@ -60,6 +60,9 @@ export default {
       margin: 0;
       font-size: 0.1rem;
       line-height: 0.12rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }
