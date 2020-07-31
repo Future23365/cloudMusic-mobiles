@@ -47,3 +47,9 @@ export let tochance = time => {
   }
   return minute + ":" + second;
 }
+
+export let trtoSecond = str => {
+  let minute = str.split(":")[0]
+  let second = str.split(":")[1]
+  return minute * 60 + Number(second);
+}

@@ -1,9 +1,9 @@
 <template>
   <div class="lyric">
     <!-- {{lyric.lyric.lyric}} -->
-    <ul>
+    <ul ref="lyric">
       <div class="active"></div>
-      <li v-for="(item, index, z) in ly" :key="z">
+      <li v-for="(item, index, z) in ly" :key="z" :class="index === activeFlag? 'white' : ''">
         <div>{{item}}</div>
         <div>{{tly[index]}}</div>
       </li>
@@ -12,12 +12,15 @@
 </template>
 
 <script>
+import { trtoSecond } from "@/tool/tools";
 export default {
   props: ['lyric'],
   data() {
     return {
       ly: {},
-      tly: {}
+      tly: {},
+      activeFlag: '00:00.00',
+      position: 0
     }
   },
   methods: {
@@ -27,7 +30,7 @@ export default {
         let arr = this.lyric.lyric.split('\n');
         this.ly = {};
         for(let item of arr) {
-          this.ly[item.slice(1, 10)] = item.slice(11);
+          this.ly[item.slice(1, 9)] = item.slice(10);
         }
         console.log(this.ly);
       }
@@ -36,16 +39,63 @@ export default {
         let arr = this.lyric.tlyric.split('\n');
         this.tly = {};
         for(let item of arr) {
-          this.tly[item.slice(1, 10)] = item.slice(11);
+          this.tly[item.slice(1, 9)] = item.slice(10);
         }
         console.log(this.tly);
       }
       // console.log(this.ly);
+    },
+    setFlag(time) {
+      let a = this.activeFlag;
+      console.log(this.activeFlag);
+      for(let item in this.ly) {
+        // console.log(item);
+        
+        if(time - trtoSecond(item) > 0.00001) { //取得于当前时间最接近的那个时间
+          this.activeFlag = item;
+        }
+      }
+      if(a !== this.activeFlag) {
+        this.position += 45
+        console.log("---------------")
+        this.$refs.lyric.scrollTop = this.position;
+      }
+      console.log(this.$refs.lyric.scrollTop);
+      // console.log(trtoSecond(str));
+      // let arr = Object.keys(this.ly);
+      // if(time - trtoSecond(str) > 0.0001) {
+      //   console.log('可以的');
+      //   console.log(this.time - trtoSecond(str));
+      //   // console.log(arr.indexOf(str))
+      //   this.activeFlag = arr.indexOf(str);
+      //   console.log('-------------------')
+      //   console.log(arr[arr.indexOf(str)]);
+      //   console.log(arr[arr.indexOf(str) - 1]);
+      //   if(arr[arr.indexOf(str) - 1]) {
+      //     console.log(trtoSecond(arr[arr.indexOf(str)]) - trtoSecond(arr[arr.indexOf(str) - 1]));
+          
+      //     if(this.time - trtoSecond(str) < arr[arr.indexOf(str)] - arr[arr.indexOf(str) - 1]) {
+      //       return true;
+      //     }
+      //   }
+        
+        
+        
+      // }
+    }
+  },
+  computed: {
+    time: function() {
+      return this.$store.state.realTime;
     }
   },
   watch: {
     lyric: function() {
+      this.position = 0;
       this.procLyric()
+    },
+    time: function() {
+      this.setFlag(this.time)
     }
   }
 }
@@ -72,7 +122,7 @@ export default {
       margin-top: 40vh;
       // background-color: #fff;
       color: #fff;
-      border-top: 1px solid #666;
+      border-bottom: 1px solid #666;
     }
     li {
       margin-bottom: 0.1rem;
@@ -82,6 +132,9 @@ export default {
       &:nth-of-type(1) {
         margin-top: 40vh;
       }
+    }
+    .white {
+      color: #fff;
     }
   }
 }
