@@ -20,7 +20,8 @@ export default {
       ly: {},
       tly: {},
       activeFlag: '00:00.00',
-      position: 0
+      position: -40,
+      ani: 0,
     }
   },
   methods: {
@@ -29,8 +30,14 @@ export default {
       if(this.lyric.lyric) {
         let arr = this.lyric.lyric.split('\n');
         this.ly = {};
+        let re = /^\[(\d\d:\d\d\.\d*)\](.*)/; //歌词匹配正则表达式
         for(let item of arr) {
-          this.ly[item.slice(1, 9)] = item.slice(10);
+          // console.log(item);
+          // console.log(item.match(re));
+          // this.ly[item.slice(1, 9)] = item.slice(10);
+          if(item.match(re)) {
+            this.ly[item.match(re)[1]] = item.match(re)[2];
+          }
         }
         console.log(this.ly);
       }
@@ -38,13 +45,20 @@ export default {
       if(this.lyric.tlyric) {
         let arr = this.lyric.tlyric.split('\n');
         this.tly = {};
+        let re2 = /^\[(\d\d:\d\d\.\d*)\](.*)/; //歌词匹配正则表达式
         for(let item of arr) {
-          this.tly[item.slice(1, 9)] = item.slice(10);
+          // this.tly[item.slice(1, 9)] = item.slice(10);
+          // console.log(item.match(re2))
+          if(item.match(re2)) {
+            this.tly[item.match(re2)[1]] = item.match(re2)[2];
+          }
+          
         }
-        console.log(this.tly);
+        // console.log(this.tly);
       }
       // console.log(this.ly);
     },
+    //歌词滚动函数
     setFlag(time) {
       let a = this.activeFlag;
       console.log(this.activeFlag);
@@ -56,11 +70,18 @@ export default {
         }
       }
       if(a !== this.activeFlag) {
-        this.position += 45
+        // this.position += 40;
+        // console.log(this.$refs.lyric.querySelector('li').offsetHeight)
+        this.position = (Object.keys(this.ly).indexOf(this.activeFlag)) * this.$refs.lyric.querySelector('li').offsetHeight // 获取当前白色各词所在位置
+        console.log(this.routerPath)
+        if(this.routerPath === '/Playpage') {
+          this.animation(this.$refs.lyric, this.position, 4);
+        }
+        
         console.log("---------------")
-        this.$refs.lyric.scrollTop = this.position;
+        // this.$refs.lyric.scrollTop = this.position;
       }
-      console.log(this.$refs.lyric.scrollTop);
+      // console.log(this.$refs.lyric.scrollTop);
       // console.log(trtoSecond(str));
       // let arr = Object.keys(this.ly);
       // if(time - trtoSecond(str) > 0.0001) {
@@ -82,21 +103,60 @@ export default {
         
         
       // }
+    },
+    //缓动动画
+    animation(el, lastPosition, rate) {
+      // console.log('对象', el);
+      // console.log("结束位置", lastPosition)
+      // window.cancelAnimationFrame(this.ani);
+      let that = this;
+      let funMove = function() {
+        if(Math.ceil((lastPosition - el.scrollTop) / rate) > 0) {
+          el.scrollTop = el.scrollTop + Math.ceil((lastPosition - el.scrollTop) / rate);
+          // console.log("移动距离", Math.ceil((lastPosition - el.scrollTop) / rate))
+        }else if(Math.ceil((lastPosition - el.scrollTop) / rate) <= 0) {
+          el.scrollTop = el.scrollTop + Math.floor((lastPosition - el.scrollTop) / rate);
+          // console.log("移动距离", (lastPosition - el.scrollTop / rate))
+        }
+        
+        // console.log("**************")
+        // console.log(lastPosition)
+        // console.log("停止标志", Math.abs(lastPosition - el.scrollTop))
+        
+        console.log(el.scrollTop)
+        // console.log("**************")
+        // console.log(lastPosition)
+        if(Math.abs(lastPosition - el.scrollTop) <= 1) {
+          el.scrollTop = lastPosition;
+          // console.log('运动停止');
+          return;
+        }
+        // console.log('运动位置', el.scrollTop);
+        if(that.routerPath === '/Playpage') { // 在歌词页面是显示滚动动画
+          window.requestAnimationFrame(funMove);
+        }
+        
+      }
+      funMove();
     }
   },
   computed: {
     time: function() {
       return this.$store.state.realTime;
+    },
+    routerPath: function() {
+      return this.$route.path;
     }
   },
   watch: {
     lyric: function() {
-      this.position = 0;
+      this.position = -40;
       this.procLyric()
     },
     time: function() {
       this.setFlag(this.time)
-    }
+    },
+
   }
 }
 </script>
@@ -115,9 +175,9 @@ export default {
     overflow: auto;
     .active {
       position: absolute;
-      top: 0;
+      top: 0.4rem;
       left: 0;
-      height: 0.3rem;
+      height: 0rem;
       width: 100vw;
       margin-top: 40vh;
       // background-color: #fff;
@@ -125,12 +185,16 @@ export default {
       border-bottom: 1px solid #666;
     }
     li {
-      margin-bottom: 0.1rem;
+      padding-bottom: 0.1rem;
       text-align: center;
       color: #ccc;
       height: 0.3rem;
+      // line-height: 0.3rem;
       &:nth-of-type(1) {
         margin-top: 40vh;
+      }
+      &:nth-last-of-type(1) {
+        margin-bottom: 40vh;
       }
     }
     .white {
