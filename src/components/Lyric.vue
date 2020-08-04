@@ -22,6 +22,7 @@ export default {
       activeFlag: '00:00.00',
       position: -40,
       ani: 0,
+      rr: [] //存储动画标记数字
     }
   },
   methods: {
@@ -65,7 +66,7 @@ export default {
       for(let item in this.ly) {
         // console.log(item);
         
-        if(time - trtoSecond(item) > 0.00001) { //取得于当前时间最接近的那个时间
+        if(time - trtoSecond(item) >= -0.1) { //取得于当前时间最接近的那个时间
           this.activeFlag = item;
         }
       }
@@ -110,6 +111,11 @@ export default {
       // console.log("结束位置", lastPosition)
       // window.cancelAnimationFrame(this.ani);
       let that = this;
+      if(this.rr.length > 0) {
+        for(let i of this.rr) {
+          window.cancelAnimationFrame(i)
+        }
+      }
       let funMove = function() {
         if(Math.ceil((lastPosition - el.scrollTop) / rate) > 0) {
           el.scrollTop = el.scrollTop + Math.ceil((lastPosition - el.scrollTop) / rate);
@@ -133,11 +139,12 @@ export default {
         }
         // console.log('运动位置', el.scrollTop);
         if(that.routerPath === '/Playpage') { // 在歌词页面是显示滚动动画
-          window.requestAnimationFrame(funMove);
+          that.rr.push(window.requestAnimationFrame(funMove));
+          // console.log(that.rr);
         }
-        
       }
       funMove();
+      this.rr = [];
     }
   },
   computed: {

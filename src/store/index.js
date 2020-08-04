@@ -14,6 +14,7 @@ export default new Vuex.Store({
     songUrl: '',
     realTime: 0,
     allTime: 0,
+    setTime: 0,
   },
   mutations: {
     setData(state,res) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     setrealTime(state, time) {
       state.realTime = time;
+    },
+    setTime(state, time) {
+      state.setTime = time;
     }
   },
   actions: {

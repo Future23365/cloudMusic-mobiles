@@ -71,11 +71,6 @@ const routes = [
     ]
   },
   {
-    path: "/Comment",
-    name: "Comment",
-    component: () => import("@/components/Comment")
-  },
-  {
     path: "/VideoPlay",
     name: "VideoPlay",
     component: () => import("@/components/VideoPlay")

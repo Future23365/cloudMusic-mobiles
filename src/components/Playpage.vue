@@ -6,8 +6,7 @@
       <div class="img-lyric" v-show="!showLyric" @click="toLyric">
         <img :src="al.picUrl" alt="" :class="songPlay ? '' : 'paused'">
         <div class="menu">
-          <span class="iconfont icon-iconfontzhizuobiaozhun023146"></span>
-          <span class="iconfont icon-jianyi" @click="goSongComment"></span>
+          <span class="iconfont icon-iconfontzhizuobiaozhun023146" @click.stop="dowloadMusic"></span>
           <span>|</span>
         </div>
       </div>
@@ -15,8 +14,10 @@
       <div class="detail-play">
         <div class="progress">
           <span class="now">{{realTime}}</span>
-          <div class="bar">
-            <div class="real" :style="{width: realWidth}"></div>
+          <div class="f-bar" @touchstart="setProcess" ref="bar">
+            <div class="bar">
+              <div class="real" :style="{width: realWidth}"></div>
+            </div>
           </div>
           <span class="total">{{allTime}}</span>
         </div>
@@ -34,7 +35,7 @@
 <script>
 import Back from "@/components/Back";
 import Lyric from "@/components/Lyric";
-import { getsongLyric } from "@/request/getdata"
+import { getsongLyric, getsongComment } from "@/request/getdata";
 export default {
   name: 'Playpage',
   components: {
@@ -44,7 +45,8 @@ export default {
   data() {
     return {
       showLyric: false,
-      lyric: {}
+      lyric: {},
+      comment: [],
     }
   },
   computed: {
@@ -119,14 +121,42 @@ export default {
         }
         
       })
+    },
+    setProcess(e) {
+      console.log(e);
+      let width = this.$refs.bar.offsetWidth;
+      let per = ((e.changedTouches[0].clientX - e.changedTouches[0].target.offsetLeft) * 100 / width).toFixed(2)
+      console.log(((e.changedTouches[0].clientX - e.changedTouches[0].target.offsetLeft) * 100 / width).toFixed(2));
+      console.log(e.changedTouches[0].target.offsetWidth);
+      console.log("设置时间", this.allTime * (per / 100))
+      this.$store.commit('setTime', this.allTime * (per / 100));
+    },
+    getComment() {
+      getsongComment('music', this.songId).then(res => {
+
+        console.log(res);
+      })
+    },
+    dowloadMusic() {
+      fetch(this.$store.state.songUrl).then(res => {
+        return res.blob();
+      }).then(res => {
+        let bURL = URL.createObjectURL(res);
+        let link = document.createElement('a');
+        link.href = bURL;
+        link.setAttribute('download', this.$store.state.songName);
+        link.click();
+      })
     }
   },
   mounted() {
     this.getLyricData();
+    this.getComment();
   },
   watch: {
     songId: function() {
       this.getLyricData();
+      this.getComment();
     }
   }
 }
@@ -220,28 +250,37 @@ export default {
         align-items: center;
         line-height: 0.14rem;
         font-size: 0.12rem;
-        .bar {
+        .f-bar {
           width: 80%;
-          height: 0.02rem;
-          background-color: rgba($color: #666, $alpha: 0.5);
-          .real {
-            position: relative;
-            width: 0%;
+          height: 0.1rem;
+          line-height: 0.1rem;
+          display: flex;
+          align-items: center;
+          align-self: center;
+          .bar {
+            width: 100%;
             height: 0.02rem;
-            background-color: #111;
-            &::after {
-              content: '';
-              position: absolute;
-              top: 50%;
-              right: 0;
-              width: 0.06rem;
-              height: 0.06rem;
-              background-color: #fff;
-              margin-top: -0.03rem;
-              border-radius: 50%;
+            background-color: rgba($color: #666, $alpha: 0.5);
+            .real {
+              position: relative;
+              width: 0%;
+              height: 0.02rem;
+              background-color: #111;
+              &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 0;
+                width: 0.06rem;
+                height: 0.06rem;
+                background-color: #fff;
+                margin-top: -0.03rem;
+                border-radius: 50%;
+              }
             }
           }
         }
+        
       }
     }
   }

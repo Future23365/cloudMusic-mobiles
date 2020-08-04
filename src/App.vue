@@ -31,6 +31,9 @@ export default {
     },
     isPlay: function() {
       return this.$store.state.songPlay;
+    },
+    setTime: function() {
+      return this.$store.state.setTime;
     }
   },
   watch: {
@@ -40,6 +43,9 @@ export default {
       }else {
         this.$refs.audio.pause();
       }
+    },
+    setTime() {
+      this.$refs.audio.currentTime = this.setTime;
     }
   }
 };
