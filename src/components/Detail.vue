@@ -21,7 +21,24 @@
             <span>{{detailData.creator && detailData.creator.nickname}}</span>
           </div>
         </div>
-        <div class="des">{{detailData.description}}</div>
+        <div class="des" @click="showCover = !showCover">{{detailData.description}}</div>
+        <div class="cover" :class="showCover ? '' : 'cover-show'">
+          <div class='img' :style="{backgroundImage: getBgc(detailData.coverImgUrl)}"></div>
+          <span @click="showCover = !showCover" class="x">X</span>
+          <div class="up">
+            <img :src="detailData.coverImgUrl" alt="">
+            <div class="name">{{detailData.name}}</div>
+          </div>
+          <div class="down">
+            <div class="title-cover">
+              <span>标签</span>
+              <span v-for="(item, index) in detailData.tags" :key="index">{{item}}</span>
+            </div>
+            <div class="description">
+              {{detailData.description}}
+            </div>
+          </div>
+        </div>
       </div>
       <div class="menu">
         <span>评论</span>
@@ -76,7 +93,8 @@ export default {
       detailData: [],
       songAllData: [],
       isDown: false,
-      beforePosition: 0
+      beforePosition: 0,
+      showCover: false
     }
   },
   methods: {
@@ -128,7 +146,7 @@ h3 {
     height: 1.66rem;
     padding-top: 0.3rem;
     margin-top: -0.3rem;
-    .img {
+    > .img {
       position: absolute;
       z-index: -1;
       top: 0.3rem;
@@ -144,7 +162,7 @@ h3 {
       height: 1.26rem;
       margin-left: 0.2rem;
     }
-    .title {
+    >.title {
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -179,6 +197,85 @@ h3 {
           top: 0;
           right: 0.2rem;
         }
+      }
+      .cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba($color: #777, $alpha: 0.9);
+        overflow: hidden;
+        z-index: 2;
+        color: #fff;
+        .img {
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          right: 0;
+          width: 200vw;
+          height: 200vh;
+          // overflow: hidden;
+          // background-size: cover;
+          background-position: 50% 50%;
+          filter: blur(100px);
+          // background-color: #555;
+        }
+        .x {
+          position: absolute;
+          // float: right;
+          top: 0.1rem;
+          right: 0.1rem;
+          // margin-top: 0.15rem;
+          // margin-right: 0.15rem;
+          font-size: 0.2rem;
+        }
+        .up {
+          height: 40%;
+          width: 100vw;
+          // display: flex;
+          // flex-direction: column;
+          // // flex-wrap: wrap;
+          // justify-content: space-around;
+          // // align-items: space-around;
+          // align-content: center;
+          // align-self: center;
+          text-align: center;
+          img {
+            // display: block;
+            height: 1.6rem;
+            width: 1.6rem;
+            margin-top: 10%;
+            // margin: 0 auto;
+          }
+          .name {
+            font-size: 0.16rem;
+            margin-top: 0.2rem;
+            
+          }
+        }
+        .down {
+          width: 100vw;
+          height: 60%;
+          overflow: auto;
+          > div {
+            margin: 0 0.2rem;
+          }
+          .title-cover {
+            margin-bottom: 0.2rem;
+            span {
+              margin-right: 0.2rem;
+            }
+            
+          }
+          .description {
+            white-space: pre-wrap;
+            margin-bottom: 0.2rem;
+          }
+        }
+      }
+      .cover-show {
+        display: none;
       }
     }
     .menu {
