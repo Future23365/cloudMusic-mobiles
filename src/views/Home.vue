@@ -50,7 +50,7 @@
       >
         <div class="content-songsheetpar">
           <ul class="content-songsheet">
-            <li v-for="(item, index) in songsheetData" :key="index" @click="goListDetail(item.id)">
+            <li v-for="(item, index) in songsheetData" :key="index" @click="goListDetail(item.id, '歌单')">
               <div>
                 <img :src="item.coverImgUrl" alt="" />
                 <br />{{ item.name }}
@@ -105,7 +105,7 @@
       >
         <div class="content-albumpar">
           <ul class="content-album">
-            <li v-for="(item, index) in albumData" :key="index">
+            <li v-for="(item, index) in albumData" :key="index" @click="goListDetail(item.id, '专辑')">
               <div>
                 <img :src="item.blurPicUrl" alt="" />
                 <br />
@@ -129,7 +129,7 @@
         ref="swiperChildmv"
       >
         <ul class="content-mv">
-          <li v-for="(item, index) in mvData" :key="index">
+          <li v-for="(item, index) in mvData" :key="index" @click="goMv(item.id)">
             <div>
               <img :src="item.picUrl" alt="" />
               <br />
@@ -263,17 +263,27 @@ export default {
       this.$router.push('/Toplist')
     },
     //点击歌单
-    goListDetail(id) {
+    goListDetail(id, type) {
       this.$router.push({
         path: '/Detail',
         query: {
-          id: id
+          id: id,
+          type: type
         }
       })
     },
     //点击播放图标
     setPlaysong(id) {
       this.$store.dispatch('requestSongdata', id);
+    },
+    goMv(id) {
+      this.$router.push({
+          path: '/VideoPlay',
+          query: {
+            id: id,
+            type: 'mv'
+          }
+        })
     }
   },
 

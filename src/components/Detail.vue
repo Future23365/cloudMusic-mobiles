@@ -77,7 +77,7 @@
 import Back from "@/components/Back";
 import Card from "@/components/Card";
 import { stringLocale } from "@/tool/tools";
-import { getUserPlaylistDetail, getSongDetailall } from "@/request/getdata";
+import { getUserPlaylistDetail, getSongDetailall, getAlbum } from "@/request/getdata";
 import Swiper from "@/components/Swiper";
 import Player from "@/components/Player";
 export default {
@@ -103,18 +103,42 @@ export default {
     },
     //获取歌单详情
     getDetailData(id) {
-      getUserPlaylistDetail(id).then(res => {
-        console.log(res)
-        this.detailData = res.playlist;
-        let arr = []
-        for(let item of res.playlist.trackIds) {
-          arr.push(item.id)
-        }
-        getSongDetailall(arr).then(res => {
-          console.log(res);
-          this.songAllData = res.songs;
+      if(this.$route.query.type === '歌单') {
+        getUserPlaylistDetail(id).then(res => {
+          console.log(res)
+          this.detailData = res.playlist;
+          let arr = []
+          for(let item of res.playlist.trackIds) {
+            arr.push(item.id)
+          }
+          getSongDetailall(arr).then(res => {
+            console.log(res);
+            this.songAllData = res.songs;
+          })
         })
-      })
+      }else if(this.$route.query.type === '专辑') {
+        getAlbum(id).then(res => {
+          console.log(res);
+          this.detailData = {}
+          this.detailData.coverImgUrl = res.album.picUrl;
+          // this.detailData.playCount = 
+          this.detailData.name = res.album.name;
+          this.detailData.creator = {};
+          this.detailData.creator.avatarUrl = res.album.artist.picUrl;
+          this.detailData.creator.nickname = res.album.artist.name;
+          this.detailData.description = res.album.description;
+          console.log(this.detailData);
+          let arr = []
+          for(let item of res.songs) {
+            arr.push(item.id)
+          }
+          getSongDetailall(arr).then(res => {
+            console.log(res);
+            this.songAllData = res.songs;
+          })
+        })
+      }
+      
     },
     getBgc(str) {
       return `url("${str}")`;
