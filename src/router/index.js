@@ -74,6 +74,11 @@ const routes = [
     path: "/VideoPlay",
     name: "VideoPlay",
     component: () => import("@/components/VideoPlay")
+  },
+  {
+    path: "/User",
+    name: "User",
+    component: () => import("@/components/User")
   }
 ];
 

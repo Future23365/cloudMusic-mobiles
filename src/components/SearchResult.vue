@@ -45,7 +45,7 @@
           <template v-slot:inf-name>{{item.name}}</template>
           <template v-slot:inf-au><span v-for="(jtem, jndex) in item.artists" :key="jndex + 'a'">{{jtem.name}}</span></template>
         </List>
-        <List v-for="(item, index) in userData" :key="index + 'us'" v-show="resultType === '用户'" class="user">
+        <List v-for="(item, index) in userData" :key="index + 'us'" v-show="resultType === '用户'" class="user" @click.native="goUser(item.userId)">
           <template v-slot:img><img :src="item.avatarUrl" alt=""></template>
           <template v-slot:inf-name>{{item.nickname}}</template>
           <template v-slot:inf-au>{{item.signature}}</template>
@@ -239,7 +239,15 @@ export default {
           }
         })
       }
-      
+    },
+    goUser(id) {
+      this.$router.push({
+        path: '/User',
+        query: {
+          userId: id,
+          type: '用户'
+        }
+      })
     }
   },
   computed: {

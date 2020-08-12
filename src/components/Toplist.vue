@@ -8,7 +8,7 @@
         ref="swiperChildToplist"
       >
         <ul class="content-toplist">
-          <li v-for="(item, index) in toplistData" :key="index">
+          <li v-for="(item, index) in toplistData" :key="index" @click="goListDetail(item.id)">
             <Card
               :showPlaycount="false"
               :showDes="true"
@@ -52,6 +52,15 @@ export default {
       getToplist().then(res => {
         console.log(res);
         this.toplistData = res.list;
+      })
+    },
+    goListDetail(id) {
+      this.$router.push({
+        path: '/Detail',
+        query: {
+          id: id,
+          type: '歌单'
+        }
       })
     }
   },

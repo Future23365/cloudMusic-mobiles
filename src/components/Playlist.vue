@@ -130,7 +130,8 @@ export default {
       this.$router.push({
         path: '/Detail',
         query: {
-          id: id
+          id: id,
+          type: '歌单'
         }
       })
     }
