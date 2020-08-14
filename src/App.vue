@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive exclude="VideoPlay,Detail">
+    <keep-alive exclude="VideoPlay,Detail,User">
       <router-view></router-view>
     </keep-alive>
     <audio :src="songUrl" ref="audio" @durationchange="setAllTime" @timeupdate="updateTime"></audio>

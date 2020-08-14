@@ -33,6 +33,10 @@ export default {
   }
   .img {
     margin-right: 0.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // line-height: 0.5rem;
   }
   .inf {
     max-width: 70%;

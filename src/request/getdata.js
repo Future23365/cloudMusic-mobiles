@@ -248,6 +248,12 @@ export const getSearchDetail = () => {
   })
 }
 
+//获取用户喜欢的音乐 
+export const getlikeLise = (id) => {
+  return server({
+    url: `/likelist?uid=${id}`
+  })
+}
 
 //并发请求
 export const serverAll = arr => {
