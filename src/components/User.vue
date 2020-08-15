@@ -7,6 +7,7 @@
       </div>
       <div class="inf">
         <div class="name">{{userData.name}}</div>
+        <div class="signature">{{userData.signature}}</div>
         <div class="ff">
           <span>关注</span><span>{{userData.follows}}</span>|<span>粉丝</span><span>{{userData.fans}}</span>
         </div>
@@ -32,7 +33,7 @@
             <template v-slot:inf-name>{{userData.name}}的听歌排行</template>
             <template v-slot:inf-au>累计听歌{{userData.listenSongs}}首</template>
           </List>
-          <List>
+          <List @click.native="goListDetail(userData.likeSongsId, '歌单')">
             <template v-slot:img>
               <span class="font-img like">
                 <svg class="icon" aria-hidden="true">
@@ -44,8 +45,25 @@
             <template v-slot:inf-au>{{userData.likeSongstrackCount}}首, 播放{{userData.likeSongsplayCount}}次</template>
           </List>
           <h3>创建的歌单({{userPlaylistCreate.length}})</h3>
-
+            <list v-for="(item, index) in userPlaylistCreateCollect" :key="index" @click.native="goListDetail(item.id, '歌单')">
+              <template v-slot:img>
+                <img :src="item.coverImgUrl" alt="" class="list-img">
+              </template>
+              <template v-slot:inf-name>{{item.name}}</template>
+              <template v-slot:inf-au>{{item.trackCount}}首, 播放{{item.playCount}}次</template>
+            </list>
           <h3>收藏的歌单({{userPlaylistCollention.length}})</h3>
+          <list v-for="(item, index) in userPlaylistCollentionCollect" :key="index + 'a'" @click.native="goListDetail(item.id, '歌单')">
+            <template v-slot:img>
+              <img :src="item.coverImgUrl" alt="" class="list-img">
+            </template>
+            <template v-slot:inf-name>{{item.name}}</template>
+            <template v-slot:inf-au>{{item.trackCount}}首, 播放{{item.playCount}}次</template>
+          </list>
+          <h3>基本信息</h3>
+          <div>村龄: {{(userData.createDays / 365).toFixed(1)}}年  ( {{new Date(1454263989721).toLocaleString()}} 注册 )</div>
+          <div>年龄:{{new Date(userData.birthday).toLocaleString()}}</div>
+          <div>地区: {{userData.city}}</div>
         </div>
       
         <div class="tag-dynamic">
@@ -93,6 +111,10 @@ export default {
         this.$set(this.userData, 'fans', res.profile.followeds);
         this.$set(this.userData, 'level', res.level);
         this.$set(this.userData, 'listenSongs', res.listenSongs);
+        this.$set(this.userData, 'signature', res.profile.signature);
+        this.$set(this.userData, 'createDays', res.createDays);
+        this.$set(this.userData, 'birthday', res.profile.birthday);
+        this.$set(this.userData, 'city', res.profile.city);
       });
       // getlikeLise(this.id).then(res => {
       //   console.log(res);
@@ -103,12 +125,15 @@ export default {
             if(item.name === `${this.userData.name}喜欢的音乐`) {
               this.$set(this.userData, 'likeSongstrackCount', item.trackCount);
               this.$set(this.userData, 'likeSongsplayCount', item.playCount);
-            }
-            if(item.userId === Number(this.id)) {
+              this.$set(this.userData, 'likeSongsId', item.id)
+            }else {
+              if(item.userId === Number(this.id)) {
               this.userPlaylistCreate.push(item);
             }else {
               this.userPlaylistCollention.push(item);
             }
+            }
+            
           }
           if(this.userPlaylistCreate.length > 7) {
             this.userPlaylistCreateCollect = this.userPlaylistCreate.slice(0, 7);
@@ -128,6 +153,7 @@ export default {
     },
     getBgc(str) {
       return `url("${str}")`;
+      
     },
     moveEvent() {
       // console.log(e);
@@ -141,7 +167,16 @@ export default {
       }else if(e.target.innerText === '动态') {
         this.$refs.main.style.marginLeft = '-100vw';
       }
-    }
+    },
+    goListDetail(id, type) {
+      this.$router.push({
+        path: '/Detail',
+        query: {
+          id: id,
+          type: type
+        }
+      })
+    },
   },
   mounted() {
     this.getUserData();
@@ -167,7 +202,7 @@ export default {
   .header {
     // box-sizing: border-box;
     // position: relative;
-    height: 1.66rem;
+    height: 2rem;
     padding-top: 0.3rem;
     margin-top: -0.3rem;
     padding-left: 0.2rem;
@@ -215,7 +250,7 @@ export default {
   
   .main {
     // height: calc(100vh - 1.66rem - 0.3rem);
-    height: 200vh;
+    // height: 200vh;
     width: 100vw;
     overflow: hidden;
     // position: relative;
@@ -259,6 +294,10 @@ export default {
       // margin-left: -100%;
     }
 
+  }
+  .list-img {
+    width: 0.4rem;
+    height: 0.4rem;
   }
 }
 </style>
