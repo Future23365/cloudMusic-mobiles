@@ -40,7 +40,7 @@
           <template v-slot:img><img :src="item.picUrl" alt=""></template>
           <template v-slot:inf-name>{{item.name}}</template>
         </List>
-        <List v-for="(item, index) in albumData" :key="index + 'al'" v-show="resultType === '专辑'" class="album">
+        <List v-for="(item, index) in albumData" :key="index + 'al'" v-show="resultType === '专辑'" class="album" @click.native="goListDetail(item.id, '专辑')">
           <template v-slot:img><img :src="item.picUrl" alt=""></template>
           <template v-slot:inf-name>{{item.name}}</template>
           <template v-slot:inf-au><span v-for="(jtem, jndex) in item.artists" :key="jndex + 'a'">{{jtem.name}}</span></template>
@@ -49,6 +49,11 @@
           <template v-slot:img><img :src="item.avatarUrl" alt=""></template>
           <template v-slot:inf-name>{{item.nickname}}</template>
           <template v-slot:inf-au>{{item.signature}}</template>
+        </List>
+        <List v-for="(item, index) in listData" :key="index + 'li'" v-show="resultType === '歌单'" class="album" @click.native="goListDetail(item.id, '歌单')">
+          <template v-slot:img><img :src="item.coverImgUrl" alt=""></template>
+          <template v-slot:inf-name>{{item.name}}</template>
+          <template v-slot:inf-au>{{item.trackCount}}首 by {{item.creator && item.creator.nickname}} 播放{{item.playCount}}次</template>
         </List>
         <div style="text-align: center">{{loading}}</div>
       </div>
@@ -77,6 +82,7 @@ export default {
       singleData: [],
       albumData: [],
       userData: [],
+      listData: [],
       loading: '努力加载中...',
       offset: 0,
       requestFlat: true,
@@ -94,6 +100,7 @@ export default {
       this.singleData = [];
       this.albumData = [];
       this.userData = [];
+      this.listData = [];
       this.offset = 0;
       this.resultType = e.target.innerText;
       console.log(e.target.innerText);
@@ -119,6 +126,9 @@ export default {
         case '用户':
           this.requestData(this.serachWord, 20, this.offset, 1002);
           break;
+        case '歌单':
+          this.requestData(this.serachWord, 20, this.offset, 1000);
+          break;
       }
     },
     //请求数据
@@ -142,6 +152,9 @@ export default {
             break;
           case '用户':
             this.processUsers(res);
+            break;
+          case '歌单':
+            this.processList(res);
             break;
         }
         
@@ -216,6 +229,18 @@ export default {
         this.loading = '没有更多啦！'
       }
     },
+    processList(res) {
+      for(let item of res.result.playlists) {
+        this.listData.push(item);
+      }
+      // this.songsData = res.result.songs;
+      if(res.result.hasMore === true) {
+        this.offset += 20;
+      }else {
+        this.requestFlat = false;
+        this.loading = '没有更多啦！'
+      }
+    },
     setPlaysong(id) {
       console.log('1')
       this.$store.dispatch('requestSongdata', id);
@@ -248,7 +273,16 @@ export default {
           type: '用户'
         }
       })
-    }
+    },
+    goListDetail(id, type) {
+      this.$router.push({
+        path: '/Detail',
+        query: {
+          id: id,
+          type: type
+        }
+      })
+    },
   },
   computed: {
     serachWord() {
@@ -275,6 +309,9 @@ export default {
           break;
         case '用户':
           this.updateData = this.userData;
+          break;
+        case '歌单':
+          this.updateData = this.listData;
           break;
       }
     }

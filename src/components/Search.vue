@@ -18,7 +18,7 @@
     <div class="main" v-show="!showResult">
       <h4>热搜榜</h4>
       <ul>
-        <li v-for="(item, index) in searchData" :key="index">
+        <li v-for="(item, index) in searchData" :key="index" @click="goSearch(item.searchWord)">
           <span class="number">{{index}}</span>
           <span class="text">
             <div>
@@ -113,6 +113,14 @@ export default {
         }
       })
     },
+    goSearch(world) {
+      this.$router.push({
+        path: '/Search/SearchResult',
+        query: {
+          value: world
+        }
+      })
+    }
   },
   computed: {
     value() {

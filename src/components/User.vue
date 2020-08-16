@@ -44,7 +44,7 @@
             <template v-slot:inf-name>{{userData.name}}喜欢的音乐</template>
             <template v-slot:inf-au>{{userData.likeSongstrackCount}}首, 播放{{userData.likeSongsplayCount}}次</template>
           </List>
-          <h3>创建的歌单({{userPlaylistCreate.length}})</h3>
+          <h3>创建的歌单({{userPlaylistCreate.length}})<span class="btn-more">更多歌单</span></h3>
             <list v-for="(item, index) in userPlaylistCreateCollect" :key="index" @click.native="goListDetail(item.id, '歌单')">
               <template v-slot:img>
                 <img :src="item.coverImgUrl" alt="" class="list-img">
@@ -52,7 +52,7 @@
               <template v-slot:inf-name>{{item.name}}</template>
               <template v-slot:inf-au>{{item.trackCount}}首, 播放{{item.playCount}}次</template>
             </list>
-          <h3>收藏的歌单({{userPlaylistCollention.length}})</h3>
+          <h3>收藏的歌单({{userPlaylistCollention.length}})<span class="btn-more">更多歌单</span></h3>
           <list v-for="(item, index) in userPlaylistCollentionCollect" :key="index + 'a'" @click.native="goListDetail(item.id, '歌单')">
             <template v-slot:img>
               <img :src="item.coverImgUrl" alt="" class="list-img">
@@ -158,6 +158,7 @@ export default {
     moveEvent() {
       // console.log(e);
       // console.log(this.$refs.tag.offsetTop)
+      // console.log(this.$refs.tag.scrollTop);
     },
     choosetag(e) {
       console.log(e.target.innerText);
@@ -264,6 +265,18 @@ export default {
     width: 200vw;
     height: 100%;
     transition: margin 0.3s;
+    h3 {
+      padding: 0 0.1rem;
+    }
+    .btn-more {
+      float: right;
+      font-size: 0.12rem;
+      line-height: 0.12rem;
+      font-weight: 400;
+      padding: 0.05rem;
+      border: 1px solid #ccc;
+      border-radius: 0.12rem;
+    }
   }
     .tag-homepage, .tag-dynamic {
       width: 100vw;
