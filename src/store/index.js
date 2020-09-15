@@ -15,6 +15,7 @@ export default new Vuex.Store({
     realTime: 0,
     allTime: 0,
     setTime: 0,
+    sheetBottom: "-40vh"
   },
   mutations: {
     setData(state,res) {
@@ -40,6 +41,14 @@ export default new Vuex.Store({
     },
     setTime(state, time) {
       state.setTime = time;
+    },
+    setSheet(state) {
+      if(state.sheetBottom === '-40vh') {
+        state.sheetBottom = '0.4rem';
+      } else if(state.sheetBottom === '0.4rem') {
+        state.sheetBottom = '-40vh';
+      }
+      
     }
   },
   actions: {

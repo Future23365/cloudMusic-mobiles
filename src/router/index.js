@@ -79,7 +79,7 @@ const routes = [
     path: "/User",
     name: "User",
     component: () => import("@/components/User")
-  }
+  },
 ];
 
 const router = new VueRouter({

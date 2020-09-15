@@ -9,13 +9,13 @@
     </div>
     <div class="buttons">
       <span class="iconfont" @click.stop="play" :class="songPlay ? 'icon-zanting' : 'icon-play_icon'"></span>
-      <span class="iconfont icon-bofangliebiao"></span>
+      <span class="iconfont icon-bofangliebiao" @click.stop="goSongsheet"></span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 export default {
   name: 'Player',
   data() {
@@ -32,6 +32,9 @@ export default {
     },
     goPlaypage() {
       this.$router.push('/Playpage')
+    },
+    goSongsheet() {
+      this.$store.commit('setSheet');
     }
   },
   computed: mapState({
